@@ -1,3 +1,4 @@
+
 // src/components/sections/realities-grid-section.tsx
 'use client';
 
@@ -11,7 +12,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PoeticizerButton } from '@/components/poeticizer-button';
+import { RealityInsightGeneratorModal } from '@/components/modals/reality-insight-generator-modal'; // New Import
 import { cn } from '@/lib/utils';
+import { BrainCircuit } from 'lucide-react';
+
 
 const sectionVariants = {
   hidden: { opacity: 0 },
@@ -43,6 +47,7 @@ export function RealitiesGridSection({ content }: { content?: RealitiesGridSecti
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [selectedReality, setSelectedReality] = useState<RealityItem | null>(null);
+  const [showInsightGeneratorModal, setShowInsightGeneratorModal] = useState(false); // New state
 
   if (!content || !content.realities) return null;
 
@@ -118,6 +123,15 @@ export function RealitiesGridSection({ content }: { content?: RealitiesGridSecti
             </Button>
            );
         })}
+         <Button 
+            variant="default" 
+            size="lg" 
+            onClick={() => setShowInsightGeneratorModal(true)}
+            className="bg-primary/80 hover:bg-primary"
+          >
+            <BrainCircuit className="mr-2 h-5 w-5" />
+            Synthesize Insights
+          </Button>
       </motion.div>
 
       {selectedReality && (
@@ -166,6 +180,11 @@ export function RealitiesGridSection({ content }: { content?: RealitiesGridSecti
           </DialogContent>
         </Dialog>
       )}
+      <RealityInsightGeneratorModal 
+        isOpen={showInsightGeneratorModal}
+        onOpenChange={setShowInsightGeneratorModal}
+        realities={content.realities}
+      />
     </motion.section>
   );
 }
