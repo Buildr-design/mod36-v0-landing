@@ -2,6 +2,7 @@
 // src/components/sections/realities-grid-section.tsx
 'use client';
 
+import React from 'react'; // Added React import
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import type { RealitiesGridSectionContent, RealityItem } from '@/data/site-content';
