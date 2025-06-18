@@ -97,7 +97,7 @@ export function HeroSectionV2({ content }: { content?: HeroSectionContentV2 }) {
           {content.subtitle}
         </motion.p>
         <motion.p
-          className="font-code text-xl md:text-3xl text-accent-foreground mb-10"
+          className="font-code text-xl md:text-3xl text-foreground mb-10"
           variants={taglineVariants}
         >
           {content.animatedTagline}
