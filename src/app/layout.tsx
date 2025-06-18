@@ -1,12 +1,14 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from '@vercel/analytics/react';
+import { siteContent } from '@/data/site-content';
 
 
 export const metadata: Metadata = {
-  title: 'ModVerse - mod36 v0',
-  description: 'mod36: A systems design company building modular futures from space, code, and culture.',
+  title: siteContent.appName || 'Mod36 App',
+  description: siteContent.meta.description || 'A modular intelligence framework.',
 };
 
 export default function RootLayout({
@@ -29,3 +31,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+    

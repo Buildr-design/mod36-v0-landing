@@ -1,19 +1,36 @@
-import { HeroSection } from '@/components/sections/hero-section';
-import { AboutSection } from '@/components/sections/about-section';
-import { ModulesSection } from '@/components/sections/modules-section';
-import { ManifestoSection } from '@/components/sections/manifesto-section';
-import { FooterSection } from '@/components/sections/footer-section';
+
+import { HeroSectionV2 } from '@/components/sections/hero-section-v2';
+import { IntroSection } from '@/components/sections/intro-section';
+import { CorePhilosophySection } from '@/components/sections/core-philosophy-section';
+import { RealitiesGridSection } from '@/components/sections/realities-grid-section';
+import { Mod36EngineSection } from '@/components/sections/mod36-engine-section';
+import { UseCasesSection } from '@/components/sections/use-cases-section';
+import { OpenModelSection } from '@/components/sections/open-model-section';
+import { RoadmapSection } from '@/components/sections/roadmap-section';
+import { FooterSectionV2 } from '@/components/sections/footer-section-v2';
+
 import { PageWrapper } from '@/components/layout/page-wrapper';
 import { siteContent } from '@/data/site-content';
 
 export default function Home() {
+  if (!siteContent || !siteContent.home) {
+    return <PageWrapper><div className="min-h-screen flex items-center justify-center">Site content is unavailable.</div></PageWrapper>;
+  }
+  const homeContent = siteContent.home;
+
   return (
     <PageWrapper>
-      <HeroSection content={siteContent.home.heroSection} />
-      <AboutSection content={siteContent.home.aboutSection} />
-      <ModulesSection content={siteContent.home.modulesSection} />
-      <ManifestoSection content={siteContent.home.manifestoSection} />
-      <FooterSection content={siteContent.home.footerSection} />
+      <HeroSectionV2 content={homeContent.heroSection} />
+      <IntroSection content={homeContent.introSection} />
+      <CorePhilosophySection content={homeContent.corePhilosophySection} />
+      <RealitiesGridSection content={homeContent.realitiesGridSection} />
+      <Mod36EngineSection content={homeContent.mod36EngineSection} />
+      <UseCasesSection content={homeContent.useCasesSection} />
+      <OpenModelSection content={homeContent.openModelSection} />
+      <RoadmapSection content={homeContent.roadmapSection} />
+      <FooterSectionV2 content={homeContent.footerSection} />
     </PageWrapper>
   );
 }
+
+    

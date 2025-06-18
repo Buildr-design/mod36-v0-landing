@@ -1,4 +1,5 @@
 // src/data/site-content.ts
+import type { LucideIcon } from 'lucide-react';
 
 export interface AppNameMeta {
   appName: string;
@@ -7,67 +8,131 @@ export interface AppNameMeta {
   };
 }
 
-export interface HeroSectionContent {
-  title: string;
-  subtitleLines: string[];
-  scrollText: string;
+// --- New Homepage Section Interfaces ---
+
+export interface CTAButton {
+  text: string;
+  href: string;
+  variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'link';
+  icon?: LucideIcon | string; // Allow LucideIcon or string for icon name
 }
 
-export interface AboutSectionContent {
-  title: string;
-  bodyText: string;
-  badgeText: string;
-  diagramPlaceholder: string;
-  diagramAltText: string;
+export interface HeroSectionContentV2 {
+  mainTitle: string;
+  subtitle: string;
+  animatedTagline: string;
+  ctaButtons: CTAButton[];
+  backgroundVisualHint: string; // For data-ai-hint
+  overlayHint?: string;
 }
 
-export interface ModuleContent {
+export interface IntroSectionContent {
+  animatedText: string;
+  highlightKeywords: string[];
+  ctaButton: CTAButton;
+}
+
+export interface PhilosophyBlockContent {
+  iconName: string; // Lucide icon name
+  title: string;
+  description: string; // Short description, full content on hover/expand (future)
+}
+
+export interface CorePhilosophySectionContent {
+  title: string; // Implicit: "Core Philosophy"
+  blocks: PhilosophyBlockContent[];
+}
+
+export interface RealityItem {
   id: string;
   name: string;
-  tagline: string;
+  description: string; // For hover/popup (future)
+  iconName?: string; // Optional Lucide icon name
+}
+
+export interface RealitiesGridSectionContent {
+  title: string; // "The 36 Realities"
+  realities: RealityItem[][]; // 6x6 grid structure
+  ctaButtons: CTAButton[];
+}
+
+export interface EngineStepContent {
+  iconName: string; // Lucide icon name
+  title: string;
   description: string;
+}
+
+export interface Mod36EngineSectionContent {
+  title: string; // "The Mod36 Engine"
+  steps: EngineStepContent[];
+}
+
+export interface UseCaseCategoryContent {
+  id: string;
+  title: string;
   imageHint: string;
   imageUrl?: string;
+  description: string;
+  link?: string; // For "full detail"
 }
 
-export interface ModulesSectionContent {
+export interface UseCasesSectionContent {
+  title: string; // "Use Cases"
+  categories: UseCaseCategoryContent[];
+}
+
+export interface ParticipationAudience {
+  iconName: string; // Lucide icon name
+  name: string;
+}
+
+export interface OpenModelSectionContent {
+  title: string; // "Open Model & Participation"
+  quoteOrManifestoExcerpt: string;
+  invitationText: string;
+  // Placeholder for sign-up form - will be visual only for now
+  audience: ParticipationAudience[];
+  ctaButtons: CTAButton[];
+}
+
+export interface RoadmapMilestoneContent {
+  version: string;
   title: string;
-  modules: ModuleContent[];
-  exploreButtonText: string;
+  description: string;
+  status: 'Now' | 'Upcoming' | 'Future';
 }
 
-export interface ManifestoSectionContent { // For the homepage snippet
-  title: string;
-  lines: Array<{ text: string }>;
-  ctaButtonText: string;
+export interface RoadmapSectionContent {
+  title: string; // "Roadmap Timeline"
+  milestones: RoadmapMilestoneContent[];
 }
 
+export interface FooterLink {
+  text: string;
+  href: string;
+}
+
+export interface FooterSectionContentV2 {
+  socialLinks: SocialLink[]; // Re-use existing SocialLink
+  licenseNotice: string;
+  links: FooterLink[];
+  brandName: string;
+  tagline: string;
+  copyrightText: string;
+  lastUpdatedPrefix?: string; // Keep optional
+}
+
+
+// --- Original Interfaces (some might be deprecated or adapted) ---
 export interface SocialLink {
   name: string;
-  Icon?: React.ComponentType<{ className?: string }>;
-  iconName?: string; // To store the name of the Lucide icon
+  Icon?: React.ComponentType<{ className?: string }>; // For direct component usage
+  iconName?: string; // For dynamic lookup
   url: string;
   ariaLabel: string;
 }
 
-export interface FooterSectionContent {
-  version: string;
-  email: string;
-  location: string;
-  socialLinks: SocialLink[];
-  copyrightText: string;
-  lastUpdatedPrefix: string;
-}
-
-export interface HomeContent {
-  heroSection: HeroSectionContent;
-  aboutSection: AboutSectionContent;
-  modulesSection: ModulesSectionContent;
-  manifestoSection: ManifestoSectionContent; // Content for the homepage section/snippet
-  footerSection: FooterSectionContent;
-}
-
-export interface ManifestoPageContent { // For the dedicated /manifesto page
+export interface ManifestoPageContent {
   title: string;
   subtitle: string;
   backButtonText: string;
@@ -104,9 +169,21 @@ export interface ModalsContent {
   };
 }
 
+// --- New Home Content Structure ---
+export interface HomeContentV2 {
+  heroSection: HeroSectionContentV2;
+  introSection: IntroSectionContent;
+  corePhilosophySection: CorePhilosophySectionContent;
+  realitiesGridSection: RealitiesGridSectionContent;
+  mod36EngineSection: Mod36EngineSectionContent;
+  useCasesSection: UseCasesSectionContent;
+  openModelSection: OpenModelSectionContent;
+  roadmapSection: RoadmapSectionContent;
+  footerSection: FooterSectionContentV2;
+}
 
 export interface SiteContent extends AppNameMeta {
-  home: HomeContent;
+  home: HomeContentV2; // Updated to V2
   manifestoPage: ManifestoPageContent;
   modals: ModalsContent;
 }
@@ -115,60 +192,110 @@ export interface SiteContent extends AppNameMeta {
 export const siteContent: SiteContent = {
   appName: "mod36 studio",
   meta: {
-    description: "Mod36: Building the future in fragments — through code, space, and cultural design.",
+    description: "Mod36: A Modular Intelligence Framework for Designing With 36 Realities.",
   },
   home: {
     heroSection: {
-      title: "mod36 v0",
-      subtitleLines: [
-        "We start where systems break,",
-        "and build from the fragments—",
-        "space, code, and culture.",
-
+      mainTitle: "Mod36",
+      subtitle: "A Modular Intelligence Framework for Designing With 36 Realities",
+      animatedTagline: "36 Realities. One Modular Future.",
+      ctaButtons: [
+        { text: "Explore the 36 Realities", href: "#realities", variant: "default", icon: "Grid" },
+        { text: "Download Whitepaper", href: "/whitepaper.pdf", variant: "outline", icon: "Download" }, // Assuming PDF path
       ],
-      scrollText: "↓ SCROLL",
+      backgroundVisualHint: "abstract data system",
+      overlayHint: "system diagrams reality icons",
     },
-    aboutSection: {
-      title: "What is mod36?",
-      bodyText: "mod36 builds tools and systems for a modular future.\nVersion Zero is where we test, fail, and build in the open.",
-      badgeText: "v0.1 experimental",
-      diagramPlaceholder: "[System Map Placeholder]",
-      diagramAltText: "diagram of abstract modular blocks",
+    introSection: {
+      animatedText: "Mod36 is a global open design system built for shaping the future.",
+      highlightKeywords: ["systems thinking", "culture", "AI", "open design", "Africa and the world"],
+      ctaButton: { text: "Read Executive Summary", href: "#summary", variant: "link" }, // Link to a future section or page
     },
-    modulesSection: {
-      title: "Modules",
-      modules: [
-        { id: 'habitat', name: 'mod36/habitat', tagline: 'EcoHab Africa', description: 'Pioneering sustainable and modular living solutions tailored for the African continent. Focusing on eco-friendly materials, community-centric design, and resilient infrastructure.', imageHint: 'modern architecture africa', imageUrl: 'https://placehold.co/600x400.png' },
-        { id: 'net', name: 'mod36/net', tagline: 'Buildr Community', description: 'A decentralized network fostering collaboration and knowledge sharing among builders, designers, and innovators in the modular construction and systems design space.', imageHint: 'community network data', imageUrl: 'https://placehold.co/600x400.png' },
-        { id: 'code', name: 'mod36/code', tagline: 'A Stealth Tech Platform', description: 'Developing a cutting-edge software platform to streamline the design, manufacturing, and deployment of modular systems. Currently in stealth mode.', imageHint: 'abstract code matrix', imageUrl: 'https://placehold.co/600x400.png' },
+    corePhilosophySection: {
+      title: "Core Philosophy",
+      blocks: [
+        { iconName: "Combine", title: "Systems Are the New Materials", description: "Understanding interconnectedness to build resilient solutions." },
+        { iconName: "Globe2", title: "Culture Is the Starting Point", description: "Designing with and for diverse human experiences." },
+        { iconName: "BrainCircuit", title: "Everyone Has Intelligence", description: "Harnessing collective wisdom for inclusive innovation." },
       ],
-      exploreButtonText: "Explore →",
     },
-    manifestoSection: {
-      title: "The Mod36 Manifesto (Signal)",
-      lines: [
-        { text: "We start where systems break." },
-        { text: "We see patterns in complexity." },
-        { text: "We build from first principles." },
+    realitiesGridSection: {
+      title: "The 36 Realities",
+      // Simplified 6x6 structure - can be expanded with actual content later
+      realities: Array(6).fill(null).map((_, rowIndex) =>
+        Array(6).fill(null).map((__, colIndex) => ({
+          id: `r${rowIndex * 6 + colIndex + 1}`,
+          name: `Reality ${rowIndex * 6 + colIndex + 1}`,
+          description: `Description for Reality ${rowIndex * 6 + colIndex + 1}. Details to come.`,
+          iconName: "Box", // Placeholder icon
+        }))
+      ),
+      ctaButtons: [
+        { text: "Use the Realities", href: "#tools", variant: "default", icon: "MousePointerSquare" },
+        { text: "See Use Cases", href: "#use-cases", variant: "outline", icon: "AppWindow" },
       ],
-      ctaButtonText: "Read the Full Manifesto",
+    },
+    mod36EngineSection: {
+      title: "The Mod36 Engine",
+      steps: [
+        { iconName: "Users", title: "Inputs", description: "Community needs, environmental data, research insights." },
+        { iconName: "Settings2", title: "Process", description: "Systems mapping, AI-driven analysis, modular toolkits." },
+        { iconName: "Lightbulb", title: "Outputs", description: "Adaptive designs, sustainable policies, compelling stories." },
+      ],
+    },
+    useCasesSection: {
+      title: "Use Cases",
+      categories: [
+        { id: "architecture", title: "Architecture & Urban Design", imageHint: "modern sustainable architecture", description: "Innovative modular housing and community spaces.", imageUrl: "https://placehold.co/400x300.png" },
+        { id: "technology", title: "Technology", imageHint: "abstract tech interface", description: "Open-source platforms and AI tools for design.", imageUrl: "https://placehold.co/400x300.png" },
+        { id: "public-systems", title: "Public Systems", imageHint: "community planning", description: "Resilient infrastructure and equitable service delivery.", imageUrl: "https://placehold.co/400x300.png" },
+        { id: "education", title: "Education", imageHint: "collaborative learning", description: "Curricula and tools for systems thinking and modular design.", imageUrl: "https://placehold.co/400x300.png" },
+        { id: "culture", title: "Culture", imageHint: "cultural expression art", description: "Platforms for preserving and evolving cultural heritage.", imageUrl: "https://placehold.co/400x300.png" },
+      ],
+    },
+    openModelSection: {
+      title: "Open Model & Participation",
+      quoteOrManifestoExcerpt: "Mod36 is a blueprint for a future we build together. Open, adaptive, and evolving.",
+      invitationText: "Join us in shaping a modular future. Your perspective is vital.",
+      audience: [
+        { iconName: "Palette", name: "Designers" },
+        { iconName: "Users", name: "Elders" },
+        { iconName: "School", name: "Teachers" },
+        { iconName: "Landmark", name: "Policymakers" },
+        { iconName: "Code", name: "Developers" },
+      ],
+      ctaButtons: [
+        { text: "Join the Ecosystem", href: "#join", variant: "default", icon: "UsersRound" }, // Placeholder for form/link
+        { text: "Propose a Collaboration", href: "mailto:hello@mod36.xyz", variant: "outline", icon: "Send" },
+      ],
+    },
+    roadmapSection: {
+      title: "Roadmap Timeline",
+      milestones: [
+        { version: "v0", title: "Community + Whitepaper", description: "Foundation, core concepts, initial community building.", status: "Now" },
+        { version: "v1", title: "Toolkits + Pilot Labs", description: "Release of open-source design tools and first real-world labs.", status: "Upcoming" },
+        { version: "v2", title: "Integration in Schools, Cities", description: "Partnerships for broader adoption and impact.", status: "Future" },
+        { version: "vFuture", title: "Global Framework Adoption", description: "Mod36 as a widely adopted standard for resilient design.", status: "Future" },
+      ],
     },
     footerSection: {
-      version: "mod36 / v0.1",
-      email: "hello@mod36.xyz",
-      location: "Built in Nigeria with global collaborators.",
       socialLinks: [
         { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
         { name: 'GitHub', iconName: 'Github', url: 'https://github.com/mod36', ariaLabel: 'Mod36 GitHub Profile' },
         { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
-        { name: 'X', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X (Twitter) Profile' },
-        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' },
-        { name: 'Facebook', iconName: 'Facebook', url: 'https://facebook.com/mod36', ariaLabel: 'Mod36 Facebook Profile' },
-        { name: 'Instagram', iconName: 'Instagram', url: 'https://instagram.com/mod36', ariaLabel: 'Mod36 Instagram Profile' },
-        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' },
+        // Add other socials as needed
       ],
-      copyrightText: "© {new Date().getFullYear()} mod36. All rights reserved.", // Made year dynamic in previous thought, should reflect here
-      lastUpdatedPrefix: "Last updated:",
+      licenseNotice: "Mod36 is an Open Source Initiative.",
+      links: [
+        { text: "Whitepaper", href: "/whitepaper.pdf" },
+        { text: "Notion Library", href: "#" }, // Placeholder
+        { text: "Community", href: "#join" }, // Placeholder
+        { text: "Contact", href: "mailto:hello@mod36.xyz" },
+      ],
+      brandName: "Mod36",
+      tagline: "36 Realities. One Modular Future.",
+      copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved.`,
+      lastUpdatedPrefix: "Site v0.2.0. Last updated:", // Example version
     },
   },
   manifestoPage: {
@@ -196,7 +323,7 @@ export const siteContent: SiteContent = {
           "A call to radically rethink design — from the ground up"
         ],
       },
-      {
+       {
         heading: "🔩 The 36 Realities",
         paragraphs: [
           "We define “realities” as planetary challenges and human truths — spanning six dimensions:",
@@ -272,6 +399,7 @@ export const siteContent: SiteContent = {
       title: "Version Logs",
       description: "Tracking the evolution of mod36 v0.",
       logs: [
+        { version: "v0.2.0", date: "2024-07-29", notes: ["Major landing page redesign to 9-section structure.", "Centralized all site content into site-content.ts with new data structures."]},
         { version: "v0.1.0", date: "2024-07-28", notes: ["Initial site build: Hero, About, Modules, Manifesto, Footer.", "Implemented scroll-based animations with Framer Motion.", "Added keyboard shortcuts for Version Log (v) and Easter Egg (Shift+M).", "Integrated AI Poeticizer feature.", "Centralized content into site-content.ts", "Added full Manifesto page."] },
         { version: "v0.0.1", date: "2024-07-01", notes: ["Project conceptualization and design blueprint.", "Core technology stack finalized (Next.js, Tailwind, Framer Motion)."] },
       ],
@@ -287,6 +415,8 @@ export const siteContent: SiteContent = {
         "ChronoLeap Engine: Temporal Data Analysis",
       ],
       experimentalNote: "These are experimental concepts. Not actual projects (yet!)."
-    } // Removed extraneous comma from here
+    }
   }
 };
+
+    
