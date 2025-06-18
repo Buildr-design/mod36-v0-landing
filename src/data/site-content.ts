@@ -1,3 +1,4 @@
+
 // src/data/site-content.ts
 import type { LucideIcon } from 'lucide-react';
 
@@ -45,18 +46,17 @@ export interface CorePhilosophySectionContent {
 
 export interface RealityItem {
   id: string;
-  title: string; // Renamed from 'name'
+  title: string;
   oneLiner: string;
-  iconName: string; // Lucide icon name
+  iconName: string;
   extendedDescription?: string;
   tags?: string[];
 }
 
 export interface RealitiesGridSectionContent {
-  title: string; // e.g., "The 36 Realities: A System Map"
-  realities: RealityItem[]; // Now a flat array
+  title: string;
+  realities: RealityItem[];
   ctaButtons: CTAButton[];
-  // centralNode?: { title: string; description: string }; // For future "Mod36 Core"
 }
 
 export interface EngineStepContent {
@@ -133,7 +133,7 @@ export interface FooterSectionContentV2 {
 
 export interface ManifestoPageContent {
   title: string;
-  subtitle: string;
+  subtitle?: string; // Made subtitle optional
   backButtonText: string;
   sections: Array<{
     heading?: string;
@@ -220,31 +220,26 @@ export const siteContent: SiteContent = {
     realitiesGridSection: {
       title: "The 36 Realities: A System Map",
       realities: [
-        // Built Environment
         { id: "housing", title: "Housing", oneLiner: "Where we live and how it feels.", iconName: "Home", extendedDescription: "Housing is more than shelter—it reflects dignity, culture, security, and identity. It’s about affordability, spatial justice, adaptability, and emotional connection to place.", tags: ["Built Environment"] },
         { id: "infrastructure", title: "Infrastructure", oneLiner: "Roads, pipes, and connections.", iconName: "Network", extendedDescription: "Infrastructure includes the physical and digital systems that support modern life. It shapes access to opportunity, equity, and resilience in crisis.", tags: ["Built Environment"] },
         { id: "architecture", title: "Architecture", oneLiner: "The buildings we live in.", iconName: "Building", extendedDescription: "Architecture reflects how people imagine and shape space. It’s a mirror of our values, our histories, and our aspirations for the future.", tags: ["Built Environment"] },
-        // Environment & Resources
         { id: "climate", title: "Climate", oneLiner: "How we care for the planet.", iconName: "CloudSun", extendedDescription: "Climate is both a global system and a local experience. Designing with climate means reducing harm, adapting, and regenerating environments.", tags: ["Environment & Resources"] },
         { id: "biodiversity", title: "Biodiversity", oneLiner: "Protecting nature and balance.", iconName: "Sprout", extendedDescription: "Biodiversity ensures life’s complexity. It's about ecosystems, species, and the invisible web of relationships that sustain all living things.", tags: ["Environment & Resources"] },
         { id: "water", title: "Water", oneLiner: "Clean access and cultural meaning.", iconName: "Droplets", extendedDescription: "Water is life. Access, control, and meaning vary across cultures. It’s sacred, political, and ecological all at once.", tags: ["Environment & Resources"] },
         { id: "energy", title: "Energy", oneLiner: "Power for life and fairness.", iconName: "Zap", extendedDescription: "Energy powers our homes and devices, but also justice, development, and autonomy. Who controls it, and how it’s generated, matters.", tags: ["Environment & Resources"] },
         { id: "waste", title: "Waste", oneLiner: "What we throw away and how we reuse it.", iconName: "Trash2", extendedDescription: "Waste reveals our systems' failures. Reframing it means designing for circularity, material life cycles, and ecological respect.", tags: ["Environment & Resources"] },
         { id: "materials", title: "Materials", oneLiner: "Where things come from and their impact.", iconName: "Layers", extendedDescription: "Materials are embedded stories—of extraction, labor, and use. Conscious selection transforms how we build and live.", tags: ["Environment & Resources"] },
-        // Culture & Knowledge
         { id: "culture", title: "Culture", oneLiner: "Who we are and what we create.", iconName: "Palette", extendedDescription: "Culture is not fixed—it’s living memory, expression, rhythm, and resistance. Design must begin from cultural truth.", tags: ["Culture & Knowledge"] },
         { id: "language", title: "Language", oneLiner: "How we speak and understand.", iconName: "Languages", extendedDescription: "Language shapes perception and identity. It carries wisdom, nuance, and emotion often lost in translation.", tags: ["Culture & Knowledge"] },
         { id: "memory", title: "Memory", oneLiner: "History, trauma, and stories.", iconName: "Brain", extendedDescription: "Memory isn’t just history—it’s emotional, political, and spatial. It shapes healing, justice, and the stories we choose to tell.", tags: ["Culture & Knowledge"] },
         { id: "religion", title: "Religion", oneLiner: "Beliefs and moral guides.", iconName: "BookOpenCheck", extendedDescription: "Religion informs ethics, community, and imagination. Designing with respect to belief systems creates deeper relevance.", tags: ["Culture & Knowledge"] },
         { id: "faith", title: "Faith", oneLiner: "Hope and inner belief.", iconName: "Sparkles", extendedDescription: "Faith speaks to what we trust even in uncertainty. It grounds resilience, purpose, and possibility in design.", tags: ["Culture & Knowledge"] },
         { id: "imagination", title: "Imagination", oneLiner: "Dreaming and creating futures.", iconName: "Lightbulb", extendedDescription: "Imagination is the core of innovation. It allows people to see beyond limitation and design toward possibility.", tags: ["Culture & Knowledge"] },
-        // Learning & Systems
         { id: "education", title: "Education", oneLiner: "How we learn and grow.", iconName: "School", extendedDescription: "Education is the foundation of agency. It must be decolonized, contextual, and built around curiosity, not control.", tags: ["Learning & Systems"] },
         { id: "technology", title: "Technology", oneLiner: "Tools that help or harm.", iconName: "Cpu", extendedDescription: "Technology reflects human intention. It amplifies power and requires thoughtful, ethical design aligned with human dignity.", tags: ["Learning & Systems"] },
         { id: "intelligence", title: "Intelligence", oneLiner: "Thinking, learning, and AI.", iconName: "BrainCircuit", extendedDescription: "Intelligence is diverse. From AI to ancestral wisdom, we must design systems that recognize all forms of knowing.", tags: ["Learning & Systems"] },
         { id: "systems", title: "Systems", oneLiner: "How everything is linked.", iconName: "Share2", extendedDescription: "Systems thinking helps us see patterns, feedback loops, and deep causes. It turns chaos into insight and design into transformation.", tags: ["Learning & Systems"] },
         { id: "attention", title: "Attention", oneLiner: "What we focus on.", iconName: "Eye", extendedDescription: "In a world of noise, attention is power. Designing for presence, not distraction, becomes a radical act.", tags: ["Learning & Systems"] },
-        // Social & Civic Life
         { id: "governance", title: "Governance", oneLiner: "Rules, leadership, and fairness.", iconName: "Landmark", extendedDescription: "Governance is not just law—it’s how power flows, who decides, and how communities shape their futures.", tags: ["Social & Civic Life"] },
         { id: "economics", title: "Economics", oneLiner: "Money, work, and sharing.", iconName: "DollarSign", extendedDescription: "Economics must evolve beyond growth. It should reflect care, value exchange, commons, and dignity.", tags: ["Social & Civic Life"] },
         { id: "work", title: "Work", oneLiner: "Jobs, machines, and meaning.", iconName: "Briefcase", extendedDescription: "Work defines identity, contribution, and survival. Automation demands we rethink purpose and livelihood.", tags: ["Social & Civic Life"] },
@@ -253,20 +248,18 @@ export const siteContent: SiteContent = {
         { id: "conflict", title: "Conflict", oneLiner: "Dealing with tension and change.", iconName: "Swords", extendedDescription: "Conflict isn’t failure—it’s a moment of friction that can lead to truth, growth, or rupture. Design for healing.", tags: ["Social & Civic Life"] },
         { id: "gender", title: "Gender", oneLiner: "Equality and identity.", iconName: "Users2", extendedDescription: "Gender intersects every aspect of design. Recognizing and correcting bias leads to equity and deeper insight.", tags: ["Social & Civic Life"] },
         { id: "migration", title: "Migration", oneLiner: "Moving, borders, and identity.", iconName: "Plane", extendedDescription: "Migration is movement, memory, and struggle. Borders are lines of both limitation and transformation.", tags: ["Social & Civic Life"] },
-        // Temporal & Existential
         { id: "time", title: "Time", oneLiner: "How fast or slow things happen.", iconName: "Clock", extendedDescription: "Time is not neutral—it is cultural, economic, and political. Design must recognize rhythms beyond speed.", tags: ["Temporal & Existential"] },
         { id: "death", title: "Death", oneLiner: "Loss, memory, and meaning.", iconName: "Archive", extendedDescription: "Death invites reflection. It reminds us to design with care, legacy, and love.", tags: ["Temporal & Existential"] },
         { id: "joy", title: "Joy", oneLiner: "Fun, play, and design that feels good.", iconName: "Smile", extendedDescription: "Joy is resistance. It's not trivial—it sustains life, brings connection, and humanizes systems.", tags: ["Temporal & Existential"] },
         { id: "the-unknown", title: "The Unknown", oneLiner: "Mystery and open questions.", iconName: "HelpCircle", extendedDescription: "The Unknown is a design partner. It pushes us to stay humble, curious, and creative in every discipline.", tags: ["Temporal & Existential"] },
-        // Essentials
         { id: "food", title: "Food", oneLiner: "What we eat and how it’s shared.", iconName: "Utensils", extendedDescription: "Food is not just sustenance—it’s memory, identity, ritual, and power. Design must respect food systems holistically.", tags: ["Essentials"] },
         { id: "health", title: "Health", oneLiner: "Caring for bodies and minds.", iconName: "HeartPulse", extendedDescription: "Health includes wellness, care systems, and collective thriving. It demands integration—not isolation—from other Realities.", tags: ["Essentials"] },
         { id: "land", title: "Land", oneLiner: "Owning, using, and remembering places.", iconName: "Mountain", extendedDescription: "Land holds conflict, culture, and community. Design must address dispossession, stewardship, and belonging.", tags: ["Essentials"] },
         { id: "media", title: "Media", oneLiner: "Who tells stories and how.", iconName: "Rss", extendedDescription: "Media creates truth, shapes opinion, and spreads emotion. Designing with media is designing with influence.", tags: ["Essentials"] }
       ],
       ctaButtons: [
-        { text: "Use the Realities Toolkit", href: "#tools", variant: "default", icon: "Wrench" }, // Placeholder for tools link
-        { text: "Explore Connections", href: "#connections", variant: "outline", icon: "Share2" }, // Placeholder for connections/system view
+        { text: "Use the Realities Toolkit", href: "#tools", variant: "default", icon: "Wrench" },
+        { text: "Explore Connections", href: "#connections", variant: "outline", icon: "Share2" },
       ],
     },
     mod36EngineSection: {
@@ -332,98 +325,40 @@ export const siteContent: SiteContent = {
     },
   },
   manifestoPage: {
-    title: "Mod36 v0 Manifesto",
-    subtitle: "“36 Realities. One Modular Future.”",
+    title: "Mod36 Executive Summary",
     backButtonText: "← Back to Home",
     sections: [
       {
-        heading: "🌍 Why Mod36 Exists",
         paragraphs: [
-          "The world is fragmenting — not just politically or socially, but ecologically, technologically, culturally. We are witnessing the collision of 36 critical realities: from climate collapse to housing crises, cultural erasure to digital colonization, AI acceleration to resource exhaustion.",
-          "Mod36 is our response.",
-          "We are not just designing buildings.\nWe are designing systems.\nNot just for comfort — but for survival, equity, and evolution."
+          "Mod36 is a modular intelligence framework designed to help individuals, communities, and systems navigate the complexities of our world through design. At its core are the 36 Realities—interconnected dimensions of life such as housing, food, energy, memory, governance, joy, and the unknown. Each Reality represents a system of forces that shape human experience, offering a lens through which we can reimagine the world—not in isolation, but in relationship."
         ],
       },
       {
-        heading: "🧱 What Is Mod36?",
         paragraphs: [
-          "Mod36 is a global design lab and systems framework.\nWe create modular, intelligent, and regenerative solutions for the 36 interconnected realities shaping our shared future."
-        ],
-        listItems: [
-          "A way of thinking",
-          "A method of building",
-          "A platform for collaboration",
-          "A call to radically rethink design — from the ground up"
-        ],
-      },
-       {
-        heading: "🔩 The 36 Realities",
-        paragraphs: [
-          "We define “realities” as planetary challenges and human truths — spanning six dimensions:",
-          "Planet – climate change, resource limits, extinction",
-          "People – migration, inequality, mental health",
-          "Place – housing, infrastructure, cities, displacement",
-          "Power – data, systems, governance, access",
-          "Process – education, work, tools, knowledge",
-          "Poetics – identity, culture, language, spirit",
-          "These are not problems to patch.\nThey are systems to redesign."
+          "In an age marked by climate uncertainty, cultural erosion, technological acceleration, and deep systemic imbalance, traditional approaches to problem-solving are no longer sufficient. Mod36 emerges as a design philosophy and practical engine that bridges systems thinking, artificial intelligence, modular design, and indigenous knowledge—especially rooted in African and Global South contexts. It equips designers, technologists, educators, policymakers, and changemakers with the tools to design with care, context, and collaboration."
         ],
       },
       {
-        heading: "🧬 Our Philosophy",
         paragraphs: [
-          "We believe in modularity — not just as form, but as freedom.",
-          "A modular future is:"
-        ],
-        listItems: [
-          "Scalable — grows with context",
-          "Adaptable — responsive to place and culture",
-          "Collaborative — open to remix and reuse",
-          "Decentralized — not dictated by the global north or any empire",
-          "Intelligent — powered by AI, systems logic, and lived knowledge",
-          "Beautiful — designed with purpose, precision, and poetry"
+          "Unlike static frameworks or siloed toolkits, Mod36 is alive, adaptive, and open-source. It treats systems as materials, culture as the blueprint, and collective intelligence as the engine. It invites a return to local wisdom while embracing global innovation. Through its modular process, users can map systemic patterns, generate solutions using AI, and develop locally relevant, globally resonant outputs—ranging from architecture to public policy, curricula, and cultural systems."
         ],
       },
       {
-        heading: "🛠️ Our Tools",
         paragraphs: [
-          "We work across mediums:"
-        ],
-        listItems: [
-          "Architecture — modular housing, public space, bioclimatic systems",
-          "AI & Software — generative design, data tools, custom systems",
-          "Speculative Futures — scenario building, storytelling, visual mapping",
-          "Open Frameworks — toolkits, templates, knowledge bases",
-          "Community Activation — education, events, residencies, networks"
-        ],
-      },
-      {
-        heading: "🧠 Who We Are",
-        paragraphs: [
-          "We are architects.\nWe are systems thinkers.\nWe are hackers of form, code, and culture.\nWe are rooted in Nigeria, inspired by the world, and committed to building a future where local wisdom meets global systems.",
-          "We are not a brand. We are a blueprint."
-        ],
-      },
-      {
-        heading: "🚀 v0 Is Just the Beginning",
-        paragraphs: [
-          "Mod36 v0 is our signal.\nIt is not perfect. It is provocative.\nIt says: we are building. We are imagining. We are inviting.",
-          "Build a system.",
-          "Break a boundary.",
-          "Rethink your reality."
+          "Mod36 is not a product. It is a movement. A shared language for rethinking how we shape life on Earth—responsibly, intelligently, and together."
         ],
         isBold: true,
       },
       {
-        heading: "🔺 Join the Modular Revolution",
         paragraphs: [
-          "The future will not be uniform.\nBut it can be modular.\nAnd it can be ours."
+          "This is a call to architects of the future—those willing to build not just structures or software, but systems of meaning."
         ],
+        isBold: true,
       },
     ],
     closingStatement: {
-      line1: "Mod36",
-      line2: "36 Realities. One Modular Future."
+      line1: "36 Realities. One Modular Future.",
+      line2: "Welcome to Mod36."
     },
     signature: "Mod36",
   },
@@ -452,3 +387,5 @@ export const siteContent: SiteContent = {
     }
   }
 };
+
+    
