@@ -2,27 +2,20 @@
 // src/components/sections/footer-section-v2.tsx
 'use client';
 
-import type { FooterSectionContentV2 } from '@/data/site-content';
+import type { FooterSectionContentUpdated } from '@/data/site-content';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { PoeticizerButton } from '@/components/poeticizer-button';
 
-export function FooterSectionV2({ content }: { content?: FooterSectionContentV2 }) {
-  const [lastUpdated, setLastUpdated] = useState('');
-
-  useEffect(() => {
-    setLastUpdated(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-  }, []);
-
+export function FooterSectionV2({ content }: { content?: FooterSectionContentUpdated }) {
   if (!content) return null;
 
-  const poeticizableText = `${content.brandName}. ${content.tagline}. ${content.licenseNotice}. Links: ${content.links.map(l => l.text).join(', ')}. Socials: ${content.socialLinks.map(s => s.name).join(', ')}.`;
+  const poeticizableText = `${content.brandName}. ${content.brandTagline}. Links: ${content.links.map(l => l.text).join(', ')}. Socials: ${content.socialLinks.map(s => s.name).join(', ')}.`;
 
   return (
     <footer 
       id="footer-v2"
-      className="snap-end flex flex-col items-center justify-center p-8 md:p-12 bg-card text-muted-foreground border-t border-border min-h-[50vh] relative"
+      className="snap-end flex flex-col items-center justify-center p-8 md:p-12 bg-card text-muted-foreground border-t border-border min-h-[40vh] relative" // Reduced min-height slightly
       aria-labelledby="footer-heading"
     >
       <PoeticizerButton 
@@ -33,12 +26,11 @@ export function FooterSectionV2({ content }: { content?: FooterSectionContentV2 
         <div id="footer-heading" className="sr-only">Footer Information</div>
         
         <div className="flex justify-center items-center gap-2">
-            {/* Placeholder for Mod36 Logo */}
-            <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm" data-ai-hint="geometric logo">M36</div>
+            <div className="h-8 w-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm" data-ai-hint="geometric logo M letter">M</div>
             <p className="font-headline text-xl font-bold text-primary">{content.brandName}</p>
         </div>
 
-        <p className="font-code text-sm text-foreground">{content.tagline}</p>
+        <p className="font-code text-md text-foreground">{content.brandTagline}</p>
         
         <div className="flex justify-center space-x-4 md:space-x-6 pt-2 flex-wrap">
           {content.socialLinks.map(({ name, iconName, url, ariaLabel }) => {
@@ -60,25 +52,17 @@ export function FooterSectionV2({ content }: { content?: FooterSectionContentV2 
 
         <div className="flex justify-center flex-wrap gap-x-4 gap-y-2 text-xs font-code">
             {content.links.map(link => (
-                <Link key={link.text} href={link.href} className="hover:text-primary hover:underline">
+                <Link key={link.text} href={link.href} className="hover:text-primary hover:underline" target={link.href.startsWith('http') || link.href.startsWith('mailto:') ? '_blank' : '_self'}>
                     {link.text}
                 </Link>
             ))}
         </div>
         
-        <p className="font-code text-xs">{content.licenseNotice}</p>
-
-        {lastUpdated && content.lastUpdatedPrefix && (
-          <p className="font-code text-xs text-muted-foreground/70 pt-2">
-            {content.lastUpdatedPrefix} {lastUpdated}
-          </p>
-        )}
-         <p className="font-code text-xs text-muted-foreground/50 pt-2">
+         <p className="font-code text-xs text-muted-foreground/70 pt-2">
           {content.copyrightText}
         </p>
       </div>
     </footer>
   );
 }
-
     

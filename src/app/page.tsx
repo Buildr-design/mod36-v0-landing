@@ -1,13 +1,11 @@
 
-import { HeroSectionV2 } from '@/components/sections/hero-section-v2';
-import { IntroSection } from '@/components/sections/intro-section';
-import { CorePhilosophySection } from '@/components/sections/core-philosophy-section';
-import { RealitiesGridSection } from '@/components/sections/realities-grid-section';
-import { Mod36EngineSection } from '@/components/sections/mod36-engine-section';
-import { UseCasesSection } from '@/components/sections/use-cases-section';
-import { OpenModelSection } from '@/components/sections/open-model-section';
-import { RoadmapSection } from '@/components/sections/roadmap-section';
-import { FooterSectionV2 } from '@/components/sections/footer-section-v2';
+import { HeroSectionV2 } from '@/components/sections/hero-section-v2'; // Re-using for new Hero content
+import { ProblemSection } from '@/components/sections/problem-section';
+import { WhatIsMod36Section } from '@/components/sections/what-is-mod36-section';
+import { UseCasesWhoItIsForSection } from '@/components/sections/use-cases-who-it-is-for-section';
+import { HowItWorksSection } from '@/components/sections/how-it-works-section';
+import { CommunityMovementSection } from '@/components/sections/community-movement-section';
+import { FooterSectionV2 } from '@/components/sections/footer-section-v2'; // Re-using for new Footer content
 
 import { PageWrapper } from '@/components/layout/page-wrapper';
 import { siteContent } from '@/data/site-content';
@@ -21,16 +19,13 @@ export default function Home() {
   return (
     <PageWrapper>
       <HeroSectionV2 content={homeContent.heroSection} />
-      <IntroSection content={homeContent.introSection} />
-      <CorePhilosophySection content={homeContent.corePhilosophySection} />
-      <RealitiesGridSection content={homeContent.realitiesGridSection} />
-      <Mod36EngineSection content={homeContent.mod36EngineSection} />
-      <UseCasesSection content={homeContent.useCasesSection} />
-      <OpenModelSection content={homeContent.openModelSection} />
-      <RoadmapSection content={homeContent.roadmapSection} />
+      <ProblemSection content={homeContent.problemSection} />
+      <WhatIsMod36Section content={homeContent.whatIsMod36Section} />
+      <UseCasesWhoItIsForSection content={homeContent.useCasesWhoItIsForSection} />
+      <HowItWorksSection content={homeContent.howItWorksSection} />
+      <CommunityMovementSection content={homeContent.communityMovementSection} />
       <FooterSectionV2 content={homeContent.footerSection} />
     </PageWrapper>
   );
 }
-
     
