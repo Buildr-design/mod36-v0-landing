@@ -1,14 +1,12 @@
-
 // src/components/sections/hero-section-v2.tsx
 'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import type { HeroSectionContentUpdated } from '@/data/site-content'; // Updated interface
+import type { HeroSectionV0Content } from '@/data/site-content';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
-import { PoeticizerButton } from '@/components/poeticizer-button';
 
 const sectionVariants = {
   hidden: { opacity: 0 },
@@ -30,20 +28,18 @@ const ctaButtonContainerVariants = {
   visible: { transition: { staggerChildren: 0.2, delayChildren: 0.8 } },
 };
 
-export function HeroSectionV2({ content }: { content?: HeroSectionContentUpdated }) {
+export function HeroSectionV2({ content }: { content?: HeroSectionV0Content }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   if (!content) return null;
 
-  const textToPoeticize = `${content.headline}\n${content.subtext}`;
-
   return (
     <motion.section
-      id="hero-v2"
+      id="hero-v0"
       ref={sectionRef}
       className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 relative text-center overflow-hidden bg-background text-foreground"
-      aria-labelledby="hero-main-headline"
+      aria-labelledby="hero-main-tagline"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
@@ -51,17 +47,17 @@ export function HeroSectionV2({ content }: { content?: HeroSectionContentUpdated
       <div className="absolute inset-0 z-0 opacity-[0.03]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="heroGridUpdated" width="70" height="70" patternUnits="userSpaceOnUse">
+            <pattern id="heroGridV0" width="60" height="60" patternUnits="userSpaceOnUse">
               <circle cx="0.5" cy="0.5" r="0.5" fill="currentColor" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#heroGridUpdated)" />
+          <rect width="100%" height="100%" fill="url(#heroGridV0)" />
         </svg>
       </div>
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'radial-gradient(circle, hsl(var(--primary) / 0.08) 0%, transparent 60%)',
+          backgroundImage: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 55%)',
           backgroundSize: '150% 150%',
           backgroundPosition: 'center center',
         }}
@@ -72,23 +68,18 @@ export function HeroSectionV2({ content }: { content?: HeroSectionContentUpdated
         className="z-10 max-w-4xl w-full flex flex-col items-center relative"
         variants={textContainerVariants}
       >
-        <PoeticizerButton 
-          textToPoeticize={textToPoeticize} 
-          className="absolute top-0 right-0 -mt-4 -mr-4 text-primary/70 hover:text-primary"
-          buttonText=''
-        />
         <motion.h1
-          id="hero-main-headline"
-          className="font-headline text-5xl md:text-7xl font-bold text-primary mb-6"
+          id="hero-main-tagline"
+          className="font-headline text-4xl md:text-6xl font-bold text-primary mb-6"
           variants={itemVariants}
         >
-          {content.headline}
+          {content.mainTagline}
         </motion.h1>
         <motion.p
           className="font-body text-lg md:text-xl text-foreground max-w-2xl mb-10"
           variants={itemVariants}
         >
-          {content.subtext}
+          {content.shortText}
         </motion.p>
 
         <motion.div
@@ -99,8 +90,13 @@ export function HeroSectionV2({ content }: { content?: HeroSectionContentUpdated
             const IconComponent = cta.icon && typeof cta.icon === 'string' ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon) : (cta.icon as LucideIcons.LucideIcon);
             return (
             <motion.div key={index} variants={itemVariants}>
-              <Button asChild variant={cta.variant || 'default'} size="lg" className={cta.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}>
-                <Link href={cta.href}>
+              <Button 
+                asChild 
+                variant={cta.variant || 'default'} 
+                size="lg" 
+                className={cta.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}
+              >
+                <Link href={cta.href} target={cta.href.startsWith('http') || cta.href.startsWith('/whitepaper.pdf') ? '_blank' : '_self'}>
                   {IconComponent && <IconComponent className="mr-2 h-5 w-5" />}
                   {cta.text}
                 </Link>
@@ -128,4 +124,3 @@ export function HeroSectionV2({ content }: { content?: HeroSectionContentUpdated
     </motion.section>
   );
 }
-    
