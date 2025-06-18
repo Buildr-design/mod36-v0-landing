@@ -1,11 +1,9 @@
 
 // src/components/sections/vision-section.tsx
-// This component is not used in the current landing page structure (post "Modular Design System for Anything and Everything" update).
-// It can be deleted or kept for reference.
-// For now, I'll leave it empty to avoid build errors if it's still imported somewhere unexpectedly.
+// This component is not used in the Mod36 v0.0.1 landing page structure.
+// Emptying to prevent build errors if accidentally imported.
 'use client';
 
-export function VisionSection({ content }: { content?: any }) { // Use `any` if no specific content type
+export function VisionSection({ content }: { content?: any }) {
   return null;
 }
-

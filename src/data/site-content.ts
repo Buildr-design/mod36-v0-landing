@@ -7,31 +7,102 @@ export interface CTAButton {
   text: string;
   href: string;
   variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'link';
-  icon?: LucideIcon | string;
+  icon?: LucideIcon | string; // string for icon name
+  target?: string; // for external links
 }
 
 export interface FooterLink {
   text: string;
   href: string;
+  target?: string;
 }
 
 export interface SocialLink {
   name: string;
-  iconName?: string;
+  iconName?: string; // Lucide icon name
   url: string;
   ariaLabel: string;
 }
 
-// --- Revised Homepage Section Interfaces ---
+// --- Mod36 v0.01 Homepage Section Interfaces ---
 
+export interface HeroV001Content {
+  headline: string;
+  subheadline: string;
+  ctaButtons: CTAButton[];
+  visualDataAiHint: string;
+}
+
+export interface WhatIsMod36IconSubsection {
+  title: string;
+  iconName: string; // Lucide icon name
+  description: string;
+}
+export interface WhatIsMod36V001Content {
+  mainParagraphs: string[];
+  iconSubsections: WhatIsMod36IconSubsection[];
+  visualDataAiHint: string; // For the "Grid-based structure morphing"
+}
+
+export interface BuildrSectionContent {
+  title: string;
+  introParagraph: string;
+  ctaButtons: CTAButton[];
+  visualDataAiHint: string; // For "Interactive challenge cards or system-building visual"
+}
+
+export interface WhyModularSectionContent {
+  title: string;
+  mainParagraphs: string[];
+  visualDataAiHint: string; // For "Animated loop showing modules snapping together"
+}
+
+export interface CommunityInvitationV001Content {
+  title: string;
+  mainParagraphs: string[];
+  ctaButtons: CTAButton[];
+}
+
+export interface RoadmapStageV001 {
+  version: string;
+  title: string;
+  description: string;
+  status: 'Live Now' | 'Upcoming' | 'In Progress';
+}
+export interface RoadmapPreviewV001Content {
+  title: string;
+  stages: RoadmapStageV001[];
+}
+
+export interface FooterV001Content {
+  navLinks: FooterLink[];
+  socialLinks: SocialLink[];
+  copyrightText: string;
+  brandTagline: string;
+}
+
+// --- Main Site Content Structure (Revised for v0.01) ---
+export interface HomeV001Content {
+  heroSection: HeroV001Content;
+  whatIsMod36Section: WhatIsMod36V001Content;
+  buildrSection: BuildrSectionContent;
+  whyModularSection: WhyModularSectionContent;
+  communityInvitationSection: CommunityInvitationV001Content;
+  roadmapPreviewSection: RoadmapPreviewV001Content;
+  footerSection: FooterV001Content;
+}
+
+
+// --- Structures for existing pages/modals (to keep them functional if needed) ---
+// These are from the previous "Mod36: The Modular Design System for Anything and Everything" version
+// And are kept for reference or if those pages/modals are still used.
 export interface HeroSectionRevisedContent {
   headline: string;
   tagline: string;
   introParagraph: string[];
   backgroundVisualHint: string;
-  ctaButtons?: CTAButton[]; // Made optional and array for flexibility
+  ctaButtons?: CTAButton[];
 }
-
 export interface CoreFeatureItem {
   title: string;
   description: string;
@@ -42,30 +113,24 @@ export interface CoreFeaturesSectionContent {
   features: CoreFeatureItem[];
   visualDataAiHint?: string;
 }
-
 export interface CallToActionContent {
   title: string;
   mainText: string;
   ctaButton: CTAButton;
   visualDataAiHint?: string;
 }
-
 export interface FooterV0Content {
   brandLine: string;
   links: FooterLink[];
   socialLinks: SocialLink[];
   copyrightText: string;
 }
-
-// --- Main Site Content Structure (Revised) ---
 export interface HomeRevisedContent {
   heroSection: HeroSectionRevisedContent;
   keyFeaturesSection: CoreFeaturesSectionContent;
   communitySection: CallToActionContent;
   footerSection: FooterV0Content;
 }
-
-// --- Structures for existing pages/modals (to keep them functional) ---
 export interface RealityItem {
   id: string;
   title: string;
@@ -74,11 +139,9 @@ export interface RealityItem {
   extendedDescription?: string;
   tags?: string[];
 }
-
 export interface RealitiesDataForAI {
   realities: Array<Pick<RealityItem, 'id' | 'title' | 'oneLiner' | 'iconName' | 'extendedDescription' | 'tags'>>;
 }
-
 export interface ManifestoPageContent {
   title: string;
   subtitle?: string;
@@ -95,13 +158,11 @@ export interface ManifestoPageContent {
   };
   signature: string;
 }
-
 export interface VersionLogEntry {
   version: string;
   date: string;
   notes: string[];
 }
-
 export interface ModalsContent {
   versionLog: {
     title: string;
@@ -115,22 +176,18 @@ export interface ModalsContent {
     experimentalNote: string;
   };
 }
-
-// --- Whitepaper Page Interfaces ---
 export interface WhitepaperSubSectionContent {
   title?: string;
   paragraphs: string[];
   listItems?: string[];
 }
-
 export interface WhitepaperSectionContent {
-  id: string; // For scroll linking if needed
+  id: string;
   title: string;
   paragraphs?: string[];
   subsections?: WhitepaperSubSectionContent[];
-  listItems?: string[]; // For simple lists directly under a section
+  listItems?: string[];
 }
-
 export interface WhitepaperPageContent {
   pageTitle: string;
   pageTagline: string;
@@ -138,9 +195,7 @@ export interface WhitepaperPageContent {
   sections: WhitepaperSectionContent[];
   finalTagline: string;
 }
-
-
-// --- Root Site Content Interface ---
+// --- AppNameMeta and Root Site Content Interface ---
 export interface AppNameMeta {
   appName: string;
   brandTagline: string;
@@ -148,68 +203,105 @@ export interface AppNameMeta {
     description: string;
   };
 }
+
 export interface SiteContent extends AppNameMeta {
-  home: HomeRevisedContent;
+  homeV001: HomeV001Content; // Current active homepage
+  home?: HomeRevisedContent; // Previous homepage structure, kept for reference
   manifestoPage: ManifestoPageContent;
-  whitepaperPage: WhitepaperPageContent; // Added whitepaper content
+  whitepaperPage: WhitepaperPageContent;
   modals: ModalsContent;
   realitiesDataForAI: RealitiesDataForAI;
 }
 
 
+// --- Site Content Data (v0.01 Focus) ---
 export const siteContent: SiteContent = {
-  appName: "Mod36: The Modular Design System for Anything and Everything",
-  brandTagline: "Design tools for any challenge. Build systems for every future.",
+  appName: "Mod36",
+  brandTagline: "Designing the Modular Future",
   meta: {
-    description: "Mod36 is a powerful, flexible modular design framework empowering creators across all fields. Design solutions, tools, and systems for anything the future demands.",
+    description: "Mod36 is a global platform for modular innovation across architecture, technology, AI, and Web3. Join us in designing the modular future.",
   },
-  home: {
+  homeV001: {
     heroSection: {
-      headline: "Mod36: The Modular Design System for Anything and Everything",
-      tagline: "Design tools for any challenge. Build systems for every future.",
-      introParagraph: [
-        "Mod36 is a powerful, flexible modular design framework that empowers creators, innovators, and builders across all fields — architecture, AI, Web3, technology, education, culture, and beyond. It’s not limited to one problem or industry. Instead, Mod36 provides the building blocks and intelligent tools you need to design solutions, tools, and systems for anything the future demands.",
-        "Whether you’re developing sustainable buildings, crafting AI workflows, creating decentralized platforms, or imagining new ways to educate and connect communities, Mod36 adapts with you. It’s a living system designed to evolve with your ideas, scale with your vision, and help you prototype the future — one modular piece at a time."
-      ],
-      backgroundVisualHint: "abstract intelligent system dark connections",
+      headline: "Design the Modular Future",
+      subheadline: "Mod36 is a global platform for modular innovation across architecture, technology, AI, and Web3.",
       ctaButtons: [
-        { text: "Read the Whitepaper", href: "/whitepaper", variant: "default", icon: "FileText" },
-        { text: "Join the Community", href: "#footer-v0", variant: "outline", icon: "Users" }
+        { text: "Explore Mod36", href: "#what-is-mod36", variant: "default", icon: "Search" },
+        { text: "Join the Community", href: "#community-invitation", variant: "outline", icon: "Users" }
+      ],
+      visualDataAiHint: "abstract modular system pulsing grid"
+    },
+    whatIsMod36Section: {
+      mainParagraphs: [
+        "Mod36 is a modular ecosystem that gives creators the tools to build future-proof systems.",
+        "From buildings and digital tools to AI models and Web3 networks, Mod36 brings it all together — system by system."
+      ],
+      iconSubsections: [
+        { title: "Architecture", iconName: "Building2", description: "Reimagining physical spaces with modular, sustainable, and culturally-aware designs." },
+        { title: "Artificial Intelligence", iconName: "BrainCircuit", description: "Developing AI tools and models that are ethical, context-aware, and enhance human creativity." },
+        { title: "Web3 & Decentralization", iconName: "Network", description: "Building decentralized networks, DAOs, and governance models with modular components." },
+        { title: "Open Source & Collaboration", iconName: "Github", description: "Fostering a global community to share, iterate, and co-create modular solutions openly." }
+      ],
+      visualDataAiHint: "grid structure morphing industries"
+    },
+    buildrSection: {
+      title: "Buildr: The First Initiative",
+      introParagraph: "Buildr is Mod36’s first initiative — a collaborative community where creators take on real challenges, share modular solutions, and prototype ideas that can scale.",
+      ctaButtons: [
+        { text: "Join Buildr", href: "#community-invitation", variant: "default", icon: "Users2" }, // Points to community section for now
+        { text: "View Challenges", href: "#", variant: "outline", icon: "ListChecks" } // Placeholder for challenges page/modal
+      ],
+      visualDataAiHint: "interactive challenge cards system building"
+    },
+    whyModularSection: {
+      title: "Why Modular?",
+      mainParagraphs: [
+        "Modular thinking means designing with adaptability, openness, and intelligence.",
+        "It means tools that grow with the world. Ideas that scale. Systems that evolve.",
+        "Mod36 turns this philosophy into action."
+      ],
+      visualDataAiHint: "modules snapping together system expanding"
+    },
+    communityInvitationSection: {
+      title: "Join the Mod36 Community",
+      mainParagraphs: [
+        "Creators from architecture, design, tech, and beyond are building the future together.",
+        "By joining, you get access to tools, events, collaborations, and early challenges."
+      ],
+      ctaButtons: [
+        // Example: Link to a Circle community and a generic early access form/page
+        { text: "Join the Community", href: "https://mod36.circle.so", variant: "default", icon: "Users", target: "_blank" },
+        { text: "Get Early Access", href: "#", variant: "outline", icon: "Sparkles" } // Placeholder
       ]
     },
-    keyFeaturesSection: {
-      title: "Core Features",
-      features: [
-        { title: "Universal Modularity", description: "Break complex challenges into flexible, reusable components that can be combined and adapted.", iconName: "Puzzle" },
-        { title: "Cross-Disciplinary", description: "Use the same framework for architecture, software, social systems, and more.", iconName: "Library" },
-        { title: "AI-Enhanced Design", description: "Harness artificial intelligence to explore possibilities and optimize solutions.", iconName: "BrainCircuit" },
-        { title: "Culturally Rooted", description: "Designed to respect and integrate diverse cultural perspectives and knowledge systems.", iconName: "Globe2" },
-        { title: "Open and Collaborative", description: "Built for sharing, iteration, and collective innovation.", iconName: "Users2" },
-      ],
-      visualDataAiHint: "interconnected modules abstract",
-    },
-    communitySection: {
-      title: "Join the Movement",
-      mainText: "Join the Mod36 community and start designing the future — whatever it looks like.",
-      ctaButton: { text: "Get Involved", href: "#footer-v0", variant: "default", icon: "Users" },
-      visualDataAiHint: "community collaboration abstract",
+    roadmapPreviewSection: {
+      title: "Roadmap Preview: v0.01 → v1",
+      stages: [
+        { version: "v0.0.1", title: "Foundation", description: "Landing site live, Buildr community portal access initiated.", status: "Live Now" },
+        { version: "v0.1.1", title: "Toolkit Alpha", description: "Challenge submissions open, initial community toolkit released.", status: "Upcoming" },
+        { version: "v0.1.2", title: "Library Launch", description: "Modular Design Library (alpha) available to early contributors.", status: "Upcoming" },
+        { version: "v1.0", title: "Protocol Expansion", description: "Smart tools, Stellar integration, and modular protocol development.", status: "Upcoming" }
+      ]
     },
     footerSection: {
-      brandLine: "Mod36 – Design. Connect. Evolve.",
-      links: [
-        { text: "Whitepaper", href: "/whitepaper" },
-        { text: "GitHub", href: "https://github.com/mod36" },
-        { text: "Community", href: "#footer-v0" },
-        { text: "Contact", href: "mailto:hello@mod36.xyz" },
+      navLinks: [
+        { text: "About", href: "#what-is-mod36" },
+        { text: "Buildr", href: "#buildr" },
+        { text: "Challenges", href: "#" }, // Placeholder
+        { text: "Join", href: "#community-invitation" }
       ],
       socialLinks: [
-        { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
-        { name: 'X (Twitter)', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X/Twitter Profile' },
-        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
+        { name: "Circle", iconName: "Link", url: "https://mod36.circle.so", ariaLabel: "Mod36 Community on Circle" },
+        { name: "Discord", iconName: "MessageSquare", url: "#", ariaLabel: "Mod36 Discord Server" }, // Placeholder
+        { name: "GitHub", iconName: "Github", url: "https://github.com/mod36", ariaLabel: "Mod36 on GitHub" },
+        { name: "Mastodon", iconName: "Share2", url: "#", ariaLabel: "Mod36 on Mastodon" } // Placeholder, using Share2 as generic
       ],
-      copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved. Licensed under Apache 2.0.`,
-    },
+      copyrightText: `© ${new Date().getFullYear()} Mod36 – Modular Futures Co.`,
+      brandTagline: "36 Modules. Infinite Futures.",
+    }
   },
+  // Keep other page content structures like manifestoPage, whitepaperPage, etc.
+  // These are not directly part of the v0.0.1 landing page redesign but might be linked or used elsewhere.
   manifestoPage: {
     title: "Mod36 Executive Summary",
     subtitle: "Modular Intelligence for a Changing World.",
@@ -377,6 +469,7 @@ export const siteContent: SiteContent = {
       title: "Version Logs",
       description: "Tracking the evolution of the Mod36 initiative.",
       logs: [
+        { version: "v0.0.1", date: "2024-08-04", notes: ["Landing page v0.0.1 redesign. Focus on modularity, AI, Web3, Buildr initiative.", "Switched to light theme with charcoal primary and blue accent."]},
         { version: "v0.7.0", date: "2024-08-03", notes: ["Added animated Whitepaper page with full content.", "Updated homepage CTAs to link to the new Whitepaper page."]},
         { version: "v0.6.1", date: "2024-08-02", notes: ["Removed visual placeholder text from Core Features and Call to Action sections."]},
         { version: "v0.6.0", date: "2024-08-02", notes: ["Major landing page revision to 'Modular Design System for Anything and Everything' theme.", "Updated Hero, Core Features, and Call to Action sections.", "Streamlined homepage structure."]},
@@ -388,7 +481,6 @@ export const siteContent: SiteContent = {
         { version: "v0.3.0", date: "2024-07-30", notes: ["Redesigned '36 Realities' section with detailed content and interactive grid.", "Updated RealityItem interface and data structure."]},
         { version: "v0.2.0", date: "2024-07-29", notes: ["Major landing page redesign to 9-section structure based on new brief.", "Centralized all site content into site-content.ts with new data structures for each section."]},
         { version: "v0.1.0", date: "2024-07-28", notes: ["Initial site build: Hero, About, Modules, Manifesto, Footer.", "Implemented scroll-based animations with Framer Motion.", "Added keyboard shortcuts for Version Log (v) and Easter Egg (Shift+M).", "Integrated AI Poeticizer feature.", "Centralized content into site-content.ts", "Added full Manifesto page."] },
-        { version: "v0.0.1", date: "2024-07-01", notes: ["Project conceptualization and design blueprint.", "Core technology stack finalized (Next.js, Tailwind, Framer Motion)."] },
       ],
     },
     easterEgg: {
@@ -404,7 +496,7 @@ export const siteContent: SiteContent = {
       experimentalNote: "These are experimental concepts. Not actual projects (yet!)."
     }
   },
-  realitiesDataForAI: {
+  realitiesDataForAI: { // Kept for potential future use with AI features
     realities: [
         { id: "housing", title: "Housing", oneLiner: "Where we live and how it feels.", iconName: "Home", extendedDescription: "Housing is more than shelter—it reflects dignity, culture, security, and identity. It’s about affordability, spatial justice, adaptability, and emotional connection to place.", tags: ["Built Environment"] },
         { id: "infrastructure", title: "Infrastructure", oneLiner: "Roads, pipes, and connections.", iconName: "Network", extendedDescription: "Infrastructure includes the physical and digital systems that support modern life. It shapes access to opportunity, equity, and resilience in crisis.", tags: ["Built Environment"] },
@@ -443,6 +535,53 @@ export const siteContent: SiteContent = {
         { id: "land", title: "Land", oneLiner: "Owning, using, and remembering places.", iconName: "Mountain", extendedDescription: "Land holds conflict, culture, and community. Design must address dispossession, stewardship, and belonging.", tags: ["Essentials"] },
         { id: "media", title: "Media", oneLiner: "Who tells stories and how.", iconName: "Tv", extendedDescription: "Media creates truth, shapes opinion, and spreads emotion. Designing with media is designing with influence.", tags: ["Communication"] }
       ]
-  }
+  },
+  // home is previous version
+  home: {
+    heroSection: {
+      headline: "Mod36: The Modular Design System for Anything and Everything",
+      tagline: "Design tools for any challenge. Build systems for every future.",
+      introParagraph: [
+        "Mod36 is a powerful, flexible modular design framework that empowers creators, innovators, and builders across all fields — architecture, AI, Web3, technology, education, culture, and beyond. It’s not limited to one problem or industry. Instead, Mod36 provides the building blocks and intelligent tools you need to design solutions, tools, and systems for anything the future demands.",
+        "Whether you’re developing sustainable buildings, crafting AI workflows, creating decentralized platforms, or imagining new ways to educate and connect communities, Mod36 adapts with you. It’s a living system designed to evolve with your ideas, scale with your vision, and help you prototype the future — one modular piece at a time."
+      ],
+      backgroundVisualHint: "abstract intelligent system dark connections",
+      ctaButtons: [
+        { text: "Read the Whitepaper", href: "/whitepaper", variant: "default", icon: "FileText" },
+        { text: "Join the Community", href: "#footer-v0", variant: "outline", icon: "Users" }
+      ]
+    },
+    keyFeaturesSection: {
+      title: "Core Features",
+      features: [
+        { title: "Universal Modularity", description: "Break complex challenges into flexible, reusable components that can be combined and adapted.", iconName: "Puzzle" },
+        { title: "Cross-Disciplinary", description: "Use the same framework for architecture, software, social systems, and more.", iconName: "Library" },
+        { title: "AI-Enhanced Design", description: "Harness artificial intelligence to explore possibilities and optimize solutions.", iconName: "BrainCircuit" },
+        { title: "Culturally Rooted", description: "Designed to respect and integrate diverse cultural perspectives and knowledge systems.", iconName: "Globe2" },
+        { title: "Open and Collaborative", description: "Built for sharing, iteration, and collective innovation.", iconName: "Users2" },
+      ],
+      visualDataAiHint: "interconnected modules abstract",
+    },
+    communitySection: {
+      title: "Join the Movement",
+      mainText: "Join the Mod36 community and start designing the future — whatever it looks like.",
+      ctaButton: { text: "Get Involved", href: "#footer-v0", variant: "default", icon: "Users" },
+      visualDataAiHint: "community collaboration abstract",
+    },
+    footerSection: {
+      brandLine: "Mod36 – Design. Connect. Evolve.",
+      links: [
+        { text: "Whitepaper", href: "/whitepaper" },
+        { text: "GitHub", href: "https://github.com/mod36" },
+        { text: "Community", href: "#footer-v0" },
+        { text: "Contact", href: "mailto:hello@mod36.xyz" },
+      ],
+      socialLinks: [
+        { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
+        { name: 'X (Twitter)', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X/Twitter Profile' },
+        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
+      ],
+      copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved. Licensed under Apache 2.0.`,
+    },
+  },
 };
-

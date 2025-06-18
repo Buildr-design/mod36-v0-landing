@@ -1,7 +1,8 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
-  darkMode: ['class'],
+  darkMode: ['class'], // Kept for potential future use, but default is light
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -10,8 +11,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        // Updated to reflect new typography choices from the prompt
+        body: ['DM Sans', 'Inter', 'sans-serif'],
+        headline: ['Space Grotesk', 'Inter', 'sans-serif'],
         code: ['Source Code Pro', 'monospace'],
       },
       colors: {
