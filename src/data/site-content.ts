@@ -158,17 +158,14 @@ export const siteContent: SiteContent = {
         { title: "Culturally Rooted", description: "Designed to respect and integrate diverse cultural perspectives and knowledge systems.", iconName: "Globe2" },
         { title: "Open and Collaborative", description: "Built for sharing, iteration, and collective innovation.", iconName: "Users2" },
       ],
-      visualHint: "[Visual: Abstract representation of interconnected modules or features]",
+      visualHint: "",
       visualDataAiHint: "interconnected modules abstract",
     },
     communitySection: { // Re-purposed for "Call to Action"
       title: "Join the Movement", // A more engaging title for the section
       mainText: "Join the Mod36 community and start designing the future — whatever it looks like.",
       ctaButton: { text: "Join the Community", href: "#footer-v0", variant: "default", icon: "Users" }, // Link to footer for contact/socials for now
-      evolutionNote: "", // Not used in this version
-      invitationParagraphs: [], // Not used in this version
-      ctaButtons: [], // Replaced by single ctaButton above
-      visualHint: "[Visual: Abstract representation of community or collaboration]",
+      visualHint: "",
       visualDataAiHint: "community collaboration abstract",
     },
     footerSection: {
