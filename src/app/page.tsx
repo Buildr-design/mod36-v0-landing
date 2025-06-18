@@ -1,10 +1,7 @@
 
 import { HeroSectionV2 } from '@/components/sections/hero-section-v2';
-import { WhatIsMod36Section } from '@/components/sections/what-is-mod36-section';
-import { VisionSection } from '@/components/sections/vision-section'; // New
-import { KeyFeaturesSection } from '@/components/sections/key-features-section'; // New
-import { UseCasesWhoItIsForSection } from '@/components/sections/use-cases-who-it-is-for-section';
-import { CommunityMovementSection } from '@/components/sections/community-movement-section';
+import { KeyFeaturesSection } from '@/components/sections/key-features-section'; // Adapted for Core Features
+import { CommunityMovementSection } from '@/components/sections/community-movement-section'; // Adapted for Call to Action
 import { FooterSectionV2 } from '@/components/sections/footer-section-v2';
 
 import { PageWrapper } from '@/components/layout/page-wrapper';
@@ -19,10 +16,7 @@ export default function Home() {
   return (
     <PageWrapper>
       <HeroSectionV2 content={homeContent.heroSection} />
-      <WhatIsMod36Section content={homeContent.whatIsMod36Section} />
-      <VisionSection content={homeContent.visionSection} />
-      <KeyFeaturesSection content={homeContent.keyFeaturesSection} />
-      <UseCasesWhoItIsForSection content={homeContent.whoItIsForSection} />
+      <KeyFeaturesSection content={homeContent.keyFeaturesSection} /> 
       <CommunityMovementSection content={homeContent.communitySection} />
       <FooterSectionV2 content={homeContent.footerSection} />
     </PageWrapper>

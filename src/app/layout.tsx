@@ -7,8 +7,8 @@ import { siteContent } from '@/data/site-content';
 
 
 export const metadata: Metadata = {
-  title: siteContent.appName || 'Mod36 App', // Will pick up "Mod36 v0"
-  description: siteContent.meta.description, // Updated description
+  title: siteContent.appName, 
+  description: siteContent.meta.description,
 };
 
 export default function RootLayout({

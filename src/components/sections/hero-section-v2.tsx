@@ -1,9 +1,10 @@
+
 // src/components/sections/hero-section-v2.tsx
 'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import type { HeroSectionV0Content } from '@/data/site-content';
+import type { HeroSectionRevisedContent } from '@/data/site-content'; // Updated interface
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
@@ -23,12 +24,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.6, 0.01, 0.05, 0.95] } },
 };
 
-const ctaButtonContainerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.2, delayChildren: 0.8 } },
-};
-
-export function HeroSectionV2({ content }: { content?: HeroSectionV0Content }) {
+export function HeroSectionV2({ content }: { content?: HeroSectionRevisedContent }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
@@ -36,10 +32,10 @@ export function HeroSectionV2({ content }: { content?: HeroSectionV0Content }) {
 
   return (
     <motion.section
-      id="hero-v0"
+      id="hero-revised"
       ref={sectionRef}
       className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 relative text-center overflow-hidden bg-background text-foreground"
-      aria-labelledby="hero-main-tagline"
+      aria-labelledby="hero-main-headline"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
@@ -69,42 +65,28 @@ export function HeroSectionV2({ content }: { content?: HeroSectionV0Content }) {
         variants={textContainerVariants}
       >
         <motion.h1
-          id="hero-main-tagline"
-          className="font-headline text-4xl md:text-6xl font-bold text-primary mb-6"
+          id="hero-main-headline"
+          className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-4"
           variants={itemVariants}
         >
-          {content.mainTagline}
+          {content.headline}
         </motion.h1>
-        <motion.p
-          className="font-body text-lg md:text-xl text-foreground max-w-2xl mb-10"
+        <motion.h2
+          className="font-body text-xl md:text-2xl text-foreground mb-8"
           variants={itemVariants}
         >
-          {content.shortText}
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4"
-          variants={ctaButtonContainerVariants}
-        >
-          {content.ctaButtons.map((cta, index) => {
-            const IconComponent = cta.icon && typeof cta.icon === 'string' ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon) : (cta.icon as LucideIcons.LucideIcon);
-            return (
-            <motion.div key={index} variants={itemVariants}>
-              <Button 
-                asChild 
-                variant={cta.variant || 'default'} 
-                size="lg" 
-                className={cta.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}
-              >
-                <Link href={cta.href} target={cta.href.startsWith('http') || cta.href.startsWith('/whitepaper.pdf') ? '_blank' : '_self'}>
-                  {IconComponent && <IconComponent className="mr-2 h-5 w-5" />}
-                  {cta.text}
-                </Link>
-              </Button>
-            </motion.div>
-          )}
-          )}
-        </motion.div>
+          {content.tagline}
+        </motion.h2>
+        
+        {content.introParagraph.map((paragraph, index) => (
+          <motion.p
+            key={index}
+            className="font-body text-base md:text-lg text-muted-foreground max-w-2xl mb-4 last:mb-0"
+            variants={itemVariants}
+          >
+            {paragraph}
+          </motion.p>
+        ))}
       </motion.div>
       
       <motion.div
@@ -124,3 +106,4 @@ export function HeroSectionV2({ content }: { content?: HeroSectionV0Content }) {
     </motion.section>
   );
 }
+

@@ -1,9 +1,11 @@
+
 // src/components/sections/community-movement-section.tsx
+// Adapted for "Call to Action"
 'use client';
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import type { CommunityV0Content } from '@/data/site-content';
+import type { CallToActionContent } from '@/data/site-content'; // Updated interface
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
@@ -18,60 +20,56 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export function CommunityMovementSection({ content }: { content?: CommunityV0Content }) {
+export function CommunityMovementSection({ content }: { content?: CallToActionContent }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   if (!content) return null;
 
+  const CtaIconComponent = content.ctaButton.icon && typeof content.ctaButton.icon === 'string' 
+    ? (LucideIcons[content.ctaButton.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon) 
+    : (content.ctaButton.icon as LucideIcons.LucideIcon);
+
   return (
     <motion.section
-      id="community" // Keep this id for existing nav links
+      id="call-to-action" 
       ref={sectionRef}
       className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 bg-card text-card-foreground relative text-center"
-      aria-labelledby="community-v0-title"
+      aria-labelledby="call-to-action-title"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
       <motion.h2
-        id="community-v0-title"
-        className="font-headline text-4xl md:text-5xl font-bold text-primary mb-8"
+        id="call-to-action-title"
+        className="font-headline text-3xl md:text-4xl font-bold text-primary mb-6"
         variants={itemVariants}
       >
         {content.title}
       </motion.h2>
 
-      <motion.div className="max-w-2xl space-y-4 mb-10 text-muted-foreground" variants={itemVariants}>
-        {content.invitationParagraphs.map((paragraph, index) => (
-            <p key={index} className="text-lg md:text-xl">{paragraph}</p>
-        ))}
-      </motion.div>
-      
-      <motion.div className="flex flex-col sm:flex-row gap-4 mb-8" variants={itemVariants}>
-          {content.ctaButtons.map((cta, index) => {
-            const IconComponent = cta.icon && typeof cta.icon === 'string' ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon) : (cta.icon as LucideIcons.LucideIcon);
-            return (
-            <motion.div key={index} variants={itemVariants}>
-              <Button asChild variant={cta.variant || 'default'} size="lg" className={cta.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}>
-                <Link href={cta.href} target={cta.href.startsWith('http') || cta.href.startsWith('mailto:') ? '_blank' : '_self'}>
-                  {IconComponent && <IconComponent className="mr-2 h-5 w-5" />}
-                  {cta.text}
-                </Link>
-              </Button>
-            </motion.div>
-          )}
-          )}
-      </motion.div>
-
-      <motion.p className="font-code text-md text-foreground italic" variants={itemVariants}>
-        {content.evolutionNote}
+      <motion.p className="max-w-xl text-lg md:text-xl text-muted-foreground mb-10" variants={itemVariants}>
+        {content.mainText}
       </motion.p>
+      
+      <motion.div variants={itemVariants}>
+        <Button 
+          asChild 
+          variant={content.ctaButton.variant || 'default'} 
+          size="lg" 
+          className={content.ctaButton.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}
+        >
+          <Link href={content.ctaButton.href} target={content.ctaButton.href.startsWith('http') || content.ctaButton.href.startsWith('mailto:') ? '_blank' : '_self'}>
+            {CtaIconComponent && <CtaIconComponent className="mr-2 h-5 w-5" />}
+            {content.ctaButton.text}
+          </Link>
+        </Button>
+      </motion.div>
 
       {content.visualHint && (
          <motion.div 
           className="mt-12 text-center text-muted-foreground font-code text-sm"
-          data-ai-hint={content.visualDataAiHint || "abstract community visual"}
+          data-ai-hint={content.visualDataAiHint || "abstract call to action visual"}
           variants={itemVariants}
         >
           {content.visualHint}

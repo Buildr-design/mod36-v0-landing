@@ -1,3 +1,4 @@
+
 // src/data/site-content.ts
 import type { LucideIcon } from 'lucide-react';
 
@@ -6,7 +7,7 @@ export interface CTAButton {
   text: string;
   href: string;
   variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'link';
-  icon?: LucideIcon | string; // Allow string for Lucide icon names
+  icon?: LucideIcon | string; 
 }
 
 export interface FooterLink {
@@ -16,81 +17,52 @@ export interface FooterLink {
 
 export interface SocialLink {
   name: string;
-  iconName?: string; // Lucide icon name
+  iconName?: string; 
   url: string;
   ariaLabel: string;
 }
 
-// --- Mod36 v0 Specific Homepage Section Interfaces ---
+// --- Revised Homepage Section Interfaces ---
 
-export interface HeroSectionV0Content {
-  mainTagline: string;
-  shortText: string;
-  ctaButtons: CTAButton[];
-  backgroundVisualHint: string; // For abstract background
+export interface HeroSectionRevisedContent {
+  headline: string;
+  tagline: string;
+  introParagraph: string[]; // Array of strings for multi-line paragraph
+  backgroundVisualHint: string;
 }
 
-export interface WhatIsMod36V0Content {
+export interface CoreFeatureItem {
   title: string;
-  definition: string;
-  diagramHint: string; // e.g., "Architecture + AI + Web3 + Culture -> Mod36"
-  diagramDataAiHint?: string;
+  description: string;
+  iconName: string; // Lucide icon name
 }
-
-export interface VisionV0Content {
+export interface CoreFeaturesSectionContent {
   title: string;
-  problems: string[];
-  quote: {
-    text: string;
-    source?: string;
-  };
+  features: CoreFeatureItem[];
   visualHint?: string;
   visualDataAiHint?: string;
 }
 
-export interface FeatureV0 {
+export interface CallToActionContent {
   title: string;
-  description?: string;
-  iconName?: string; // Lucide icon name
-}
-export interface KeyFeaturesV0Content {
-  title: string;
-  features: FeatureV0[];
+  mainText: string;
+  ctaButton: CTAButton;
   visualHint?: string;
   visualDataAiHint?: string;
 }
 
-export interface WhoItIsForV0Content {
-  title: string;
-  audienceList: string[];
-  visualHint?: string; // For icons representing roles
-  visualDataAiHint?: string;
-}
-
-export interface CommunityV0Content {
-  title: string;
-  invitationParagraphs: string[];
-  ctaButtons: CTAButton[];
-  evolutionNote: string;
-  visualHint?: string;
-  visualDataAiHint?: string;
-}
-
-export interface FooterV0Content {
+export interface FooterV0Content { // Keeping name for now, content is similar
   brandLine: string;
   links: FooterLink[];
   socialLinks: SocialLink[];
   copyrightText: string;
 }
 
-// --- Main Site Content Structure (v0 specific) ---
-export interface HomeV0Content {
-  heroSection: HeroSectionV0Content;
-  whatIsMod36Section: WhatIsMod36V0Content;
-  visionSection: VisionV0Content;
-  keyFeaturesSection: KeyFeaturesV0Content;
-  whoItIsForSection: WhoItIsForV0Content;
-  communitySection: CommunityV0Content;
+// --- Main Site Content Structure (Revised) ---
+export interface HomeRevisedContent {
+  heroSection: HeroSectionRevisedContent;
+  keyFeaturesSection: CoreFeaturesSectionContent; // Re-using KeyFeaturesSection for Core Features
+  communitySection: CallToActionContent; // Re-using CommunityMovementSection for Call to Action
   footerSection: FooterV0Content;
 }
 
@@ -99,13 +71,13 @@ export interface RealityItem {
   id: string;
   title: string;
   oneLiner: string;
-  iconName: string; // Lucide icon name
+  iconName: string; 
   extendedDescription?: string;
   tags?: string[];
 }
 
 export interface RealitiesDataForAI {
-  realities: Pick<RealityItem, 'id' | 'title'>[];
+  realities: Array<Pick<RealityItem, 'id' | 'title' | 'oneLiner' | 'iconName' | 'extendedDescription' | 'tags'>>;
 }
 
 export interface ManifestoPageContent {
@@ -147,112 +119,75 @@ export interface ModalsContent {
 
 // --- Root Site Content Interface ---
 export interface AppNameMeta {
-  appName: string; // e.g., "Mod36 v0"
-  brandTagline: string; // e.g., "Modular Intelligence for a Changing World."
+  appName: string; 
+  brandTagline: string; // General tagline for the brand
   meta: {
-    description: string; // e.g., "Design with systems. Build with culture. Evolve with AI."
+    description: string;
   };
 }
 export interface SiteContent extends AppNameMeta {
-  home: HomeV0Content; // Specific to v0 landing page
-  manifestoPage: ManifestoPageContent; // For the /manifesto route
-  modals: ModalsContent; // For modals like version log, easter egg
-  realitiesDataForAI: RealitiesDataForAI; // For AI features if they use the 36 realities data
+  home: HomeRevisedContent; // Specific to revised landing page
+  manifestoPage: ManifestoPageContent; 
+  modals: ModalsContent; 
+  realitiesDataForAI: RealitiesDataForAI; 
 }
 
 
 export const siteContent: SiteContent = {
-  appName: "Mod36 v0",
-  brandTagline: "Modular Intelligence for a Changing World.",
+  appName: "Mod36: The Modular Design System for Anything and Everything",
+  brandTagline: "Design tools for any challenge. Build systems for every future.",
   meta: {
-    description: "Design with systems. Build with culture. Evolve with AI. Mod36 v0 is an open framework exploring how architecture, AI, and Web3 can build more human futures.",
+    description: "Mod36 is a powerful, flexible modular design framework empowering creators across all fields. Design solutions, tools, and systems for anything the future demands.",
   },
   home: {
     heroSection: {
-      mainTagline: "36 Modules. Infinite Futures.",
-      shortText: "Mod36 v0 is an open framework for designing with intelligence. Explore how architecture, AI, and Web3 can work together to build more human futures.",
-      ctaButtons: [
-        { text: "Read the Whitepaper", href: "/whitepaper.pdf", variant: "default", icon: "FileText" },
-        { text: "Join the v0 Community", href: "#community", variant: "outline", icon: "Users" },
+      headline: "Mod36: The Modular Design System for Anything and Everything",
+      tagline: "Design tools for any challenge. Build systems for every future.",
+      introParagraph: [
+        "Mod36 is a powerful, flexible modular design framework that empowers creators, innovators, and builders across all fields — architecture, AI, Web3, technology, education, culture, and beyond. It’s not limited to one problem or industry. Instead, Mod36 provides the building blocks and intelligent tools you need to design solutions, tools, and systems for anything the future demands.",
+        "Whether you’re developing sustainable buildings, crafting AI workflows, creating decentralized platforms, or imagining new ways to educate and connect communities, Mod36 adapts with you. It’s a living system designed to evolve with your ideas, scale with your vision, and help you prototype the future — one modular piece at a time."
       ],
-      backgroundVisualHint: "abstract intelligent system dark",
+      backgroundVisualHint: "abstract intelligent system dark connections",
     },
-    whatIsMod36Section: {
-      title: "What is Mod36 v0?",
-      definition: "Mod36 is a design intelligence system made for modern builders. At v0, it’s an open-source framework for exploring modular, culturally informed, and system-based design.",
-      diagramHint: "[Diagram: Architecture + AI + Web3 + Culture → Mod36]",
-      diagramDataAiHint: "conceptual diagram connection",
-    },
-    visionSection: {
-      title: "The Vision Behind v0",
-      problems: [
-        "Broken design pipelines",
-        "Siloed innovation",
-        "Lack of local, scalable frameworks",
-      ],
-      quote: {
-        text: "We’re not guessing the future — we’re designing with it.",
-      },
-      visualHint: "[Visual: Abstract representation of interconnected problems transforming into solutions]",
-      visualDataAiHint: "problem solution transformation abstract",
-    },
-    keyFeaturesSection: {
-      title: "Key Features of v0",
+    keyFeaturesSection: { // Re-purposed for "Core Features"
+      title: "Core Features",
       features: [
-        { title: "Modular Framework for Design", iconName: "Grid", description: "A structured yet flexible approach to deconstruct and reconstruct complex challenges." },
-        { title: "Early Tools", iconName: "Package", description: "Whitepaper, Notion templates, and a research library to get started." },
-        { title: "AI in Context-Aware Problem-Solving", iconName: "BrainCircuit", description: "Leveraging AI to understand nuances and generate relevant insights." },
-        { title: "Open-Source Contributions", iconName: "GitFork", description: "Built for and with the community. Your ideas shape the future of Mod36." },
-        { title: "Community-Led Design Models", iconName: "Users2", description: "Evolving through collaborative design, testing, and feedback." },
+        { title: "Universal Modularity", description: "Break complex challenges into flexible, reusable components that can be combined and adapted.", iconName: "Puzzle" },
+        { title: "Cross-Disciplinary", description: "Use the same framework for architecture, software, social systems, and more.", iconName: "Library" },
+        { title: "AI-Enhanced Design", description: "Harness artificial intelligence to explore possibilities and optimize solutions.", iconName: "BrainCircuit" },
+        { title: "Culturally Rooted", description: "Designed to respect and integrate diverse cultural perspectives and knowledge systems.", iconName: "Globe2" },
+        { title: "Open and Collaborative", description: "Built for sharing, iteration, and collective innovation.", iconName: "Users2" },
       ],
-      visualHint: "[Visual: Morphing grid or shifting modules animation]",
-      visualDataAiHint: "modular grid morphing animation",
+      visualHint: "[Visual: Abstract representation of interconnected modules or features]",
+      visualDataAiHint: "interconnected modules abstract",
     },
-    whoItIsForSection: {
-      title: "Who It’s For",
-      audienceList: [
-        "Architects",
-        "System Designers",
-        "Technologists",
-        "Web3 Explorers",
-        "AI Engineers",
-        "Creatives working on complex problems",
-      ],
-      visualHint: "[Visual: Icons representing different roles arranged in a network]",
-      visualDataAiHint: "diverse professional roles network",
-    },
-    communitySection: {
-      title: "Community & Call to Action",
-      invitationParagraphs: [
-        "Mod36 is built with and for its community. Your insights, contributions, and experiments are vital to its evolution.",
-        "Join us to co-create tools, participate in labs, test prototypes, and help shape a framework that's adaptable, intelligent, and culturally rich."
-      ],
-      ctaButtons: [
-        { text: "Join our Discord", href: "https://discord.gg/mod36", variant: "default", icon: "MessageSquare" }, // Placeholder link
-        { text: "Sign Up to Co-Create", href: "mailto:community@mod36.xyz?subject=Mod36 v0 Co-Creation Interest", variant: "outline", icon: "PlusCircle" },
-      ],
-      evolutionNote: "Mod36 v0 will evolve directly based on user input and collaborative development.",
-      visualHint: "[Visual: Growing network or community contribution graphic]",
-      visualDataAiHint: "community network growth collaboration",
+    communitySection: { // Re-purposed for "Call to Action"
+      title: "Join the Movement", // A more engaging title for the section
+      mainText: "Join the Mod36 community and start designing the future — whatever it looks like.",
+      ctaButton: { text: "Join the Community", href: "#footer-v0", variant: "default", icon: "Users" }, // Link to footer for contact/socials for now
+      evolutionNote: "", // Not used in this version
+      invitationParagraphs: [], // Not used in this version
+      ctaButtons: [], // Replaced by single ctaButton above
+      visualHint: "[Visual: Abstract representation of community or collaboration]",
+      visualDataAiHint: "community collaboration abstract",
     },
     footerSection: {
-      brandLine: "Mod36 v0 – Designed to Grow. Built to Adapt.",
+      brandLine: "Mod36 – Design. Connect. Evolve.",
       links: [
         { text: "Whitepaper", href: "/whitepaper.pdf" },
-        { text: "GitHub", href: "https://github.com/mod36" }, // Placeholder
-        { text: "Community", href: "#community" },
-        { text: "Newsletter", href: "mailto:newsletter@mod36.xyz?subject=Subscribe to Mod36 Newsletter" }, // Placeholder
+        { text: "GitHub", href: "https://github.com/mod36" }, 
+        { text: "Community", href: "#" }, // Placeholder
         { text: "Contact", href: "mailto:hello@mod36.xyz" },
       ],
       socialLinks: [
         { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
         { name: 'X (Twitter)', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X/Twitter Profile' },
-        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' }, // Assuming Send icon is appropriate for Threads
+        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' }, 
       ],
-      copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved. Licensed under Apache 2.0.`, // Added license
+      copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved. Licensed under Apache 2.0.`,
     },
   },
-  manifestoPage: { // Content from previous update, remains unchanged by this prompt for the landing page
+  manifestoPage: { 
     title: "Mod36 Executive Summary",
     backButtonText: "← Back to Home",
     sections: [
@@ -290,11 +225,12 @@ export const siteContent: SiteContent = {
     },
     signature: "Mod36",
   },
-  modals: { // Content from previous update, remains unchanged
+  modals: { 
     versionLog: {
       title: "Version Logs",
       description: "Tracking the evolution of ModVerse.",
       logs: [
+        { version: "v0.6.0", date: "2024-08-02", notes: ["Major landing page revision to 'Modular Design System for Anything and Everything' theme.", "Updated Hero, Core Features, and Call to Action sections.", "Streamlined homepage structure."]},
         { version: "v0.5.0", date: "2024-08-01", notes: ["Major landing page overhaul to 'Mod36 v0' structure and content.", "Updated site metadata for v0 branding.", "Removed Problem, HowItWorks, and RealitiesGrid sections from homepage."]},
         { version: "v0.4.0", date: "2024-07-31", notes: ["Major landing page overhaul to new 7-section structure.", "Updated content and components as per new brief.", "Removed RealitiesGridSection from homepage."]},
         { version: "v0.3.1", date: "2024-07-30", notes: ["Integrated AI Insight Generator modal, triggered from Realities Grid."]},
@@ -317,44 +253,45 @@ export const siteContent: SiteContent = {
       experimentalNote: "These are experimental concepts. Not actual projects (yet!)."
     }
   },
-  realitiesDataForAI: { // Content from previous update, remains unchanged
+  realitiesDataForAI: { 
     realities: [
-        { id: "housing", title: "Housing"},
-        { id: "infrastructure", title: "Infrastructure"},
-        { id: "architecture", title: "Architecture"},
-        { id: "climate", title: "Climate"},
-        { id: "biodiversity", title: "Biodiversity"},
-        { id: "water", title: "Water"},
-        { id: "energy", title: "Energy"},
-        { id: "waste", title: "Waste"},
-        { id: "materials", title: "Materials"},
-        { id: "culture", title: "Culture"},
-        { id: "language", title: "Language"},
-        { id: "memory", title: "Memory"},
-        { id: "religion", title: "Religion"},
-        { id: "faith", title: "Faith"},
-        { id: "imagination", title: "Imagination"},
-        { id: "education", title: "Education"},
-        { id: "technology", title: "Technology"},
-        { id: "intelligence", title: "Intelligence"},
-        { id: "systems", title: "Systems"},
-        { id: "attention", title: "Attention"},
-        { id: "governance", title: "Governance"},
-        { id: "economics", title: "Economics"},
-        { id: "work", title: "Work"},
-        { id: "power", title: "Power"},
-        { id: "trust", title: "Trust"},
-        { id: "conflict", title: "Conflict"},
-        { id: "gender", title: "Gender"},
-        { id: "migration", title: "Migration"},
-        { id: "time", title: "Time"},
-        { id: "death", title: "Death"},
-        { id: "joy", title: "Joy"},
-        { id: "the-unknown", title: "The Unknown"},
-        { id: "food", title: "Food"},
-        { id: "health", title: "Health"},
-        { id: "land", title: "Land"},
-        { id: "media", title: "Media"}
+        { id: "housing", title: "Housing", oneLiner: "Where we live and how it feels.", iconName: "Home", extendedDescription: "Housing is more than shelter—it reflects dignity, culture, security, and identity. It’s about affordability, spatial justice, adaptability, and emotional connection to place.", tags: ["Built Environment"] },
+        { id: "infrastructure", title: "Infrastructure", oneLiner: "Roads, pipes, and connections.", iconName: "Network", extendedDescription: "Infrastructure includes the physical and digital systems that support modern life. It shapes access to opportunity, equity, and resilience in crisis.", tags: ["Built Environment"] },
+        { id: "architecture", title: "Architecture", oneLiner: "The buildings we live in.", iconName: "Building", extendedDescription: "Architecture reflects how people imagine and shape space. It’s a mirror of our values, our histories, and our aspirations for the future.", tags: ["Built Environment"] },
+        { id: "climate", title: "Climate", oneLiner: "How we care for the planet.", iconName: "CloudSun", extendedDescription: "Climate is both a global system and a local experience. Designing with climate means reducing harm, adapting, and regenerating environments.", tags: ["Environment"] },
+        { id: "biodiversity", title: "Biodiversity", oneLiner: "Protecting nature and balance.", iconName: "Leaf", extendedDescription: "Biodiversity ensures life’s complexity. It's about ecosystems, species, and the invisible web of relationships that sustain all living things.", tags: ["Environment"] },
+        { id: "water", title: "Water", oneLiner: "Clean access and cultural meaning.", iconName: "Droplets", extendedDescription: "Water is life. Access, control, and meaning vary across cultures. It’s sacred, political, and ecological all at once.", tags: ["Environment"] },
+        { id: "energy", title: "Energy", oneLiner: "Power for life and fairness.", iconName: "Zap", extendedDescription: "Energy powers our homes and devices, but also justice, development, and autonomy. Who controls it, and how it’s generated, matters.", tags: ["Environment"] },
+        { id: "waste", title: "Waste", oneLiner: "What we throw away and how we reuse it.", iconName: "Trash2", extendedDescription: "Waste reveals our systems' failures. Reframing it means designing for circularity, material life cycles, and ecological respect.", tags: ["Environment"] },
+        { id: "materials", title: "Materials", oneLiner: "Where things come from and their impact.", iconName: "Box", extendedDescription: "Materials are embedded stories—of extraction, labor, and use. Conscious selection transforms how we build and live.", tags: ["Environment"] },
+        { id: "culture", title: "Culture", oneLiner: "Who we are and what we create.", iconName: "Palette", extendedDescription: "Culture is not fixed—it’s living memory, expression, rhythm, and resistance. Design must begin from cultural truth.", tags: ["Culture"] },
+        { id: "language", title: "Language", oneLiner: "How we speak and understand.", iconName: "Languages", extendedDescription: "Language shapes perception and identity. It carries wisdom, nuance, and emotion often lost in translation.", tags: ["Culture"] },
+        { id: "memory", title: "Memory", oneLiner: "History, trauma, and stories.", iconName: "Brain", extendedDescription: "Memory isn’t just history—it’s emotional, political, and spatial. It shapes healing, justice, and the stories we choose to tell.", tags: ["Culture"] },
+        { id: "religion", title: "Religion", oneLiner: "Beliefs and moral guides.", iconName: "BookOpen", extendedDescription: "Religion informs ethics, community, and imagination. Designing with respect to belief systems creates deeper relevance.", tags: ["Culture"] },
+        { id: "faith", title: "Faith", oneLiner: "Hope and inner belief.", iconName: "Sparkles", extendedDescription: "Faith speaks to what we trust even in uncertainty. It grounds resilience, purpose, and possibility in design.", tags: ["Culture"] },
+        { id: "imagination", title: "Imagination", oneLiner: "Dreaming and creating futures.", iconName: "Lightbulb", extendedDescription: "Imagination is the core of innovation. It allows people to see beyond limitation and design toward possibility.", tags: ["Culture"] },
+        { id: "education", title: "Education", oneLiner: "How we learn and grow.", iconName: "GraduationCap", extendedDescription: "Education is the foundation of agency. It must be decolonized, contextual, and built around curiosity, not control.", tags: ["Knowledge"] },
+        { id: "technology", title: "Technology", oneLiner: "Tools that help or harm.", iconName: "Cpu", extendedDescription: "Technology reflects human intention. It amplifies power and requires thoughtful, ethical design aligned with human dignity.", tags: ["Knowledge"] },
+        { id: "intelligence", title: "Intelligence", oneLiner: "Thinking, learning, and AI.", iconName: "Chip", extendedDescription: "Intelligence is diverse. From AI to ancestral wisdom, we must design systems that recognize all forms of knowing.", tags: ["Knowledge"] },
+        { id: "systems", title: "Systems", oneLiner: "How everything is linked.", iconName: "GitFork", extendedDescription: "Systems thinking helps us see patterns, feedback loops, and deep causes. It turns chaos into insight and design into transformation.", tags: ["Knowledge"] },
+        { id: "attention", title: "Attention", oneLiner: "What we focus on.", iconName: "Eye", extendedDescription: "In a world of noise, attention is power. Designing for presence, not distraction, becomes a radical act.", tags: ["Knowledge"] },
+        { id: "governance", title: "Governance", oneLiner: "Rules, leadership, and fairness.", iconName: "Scale", extendedDescription: "Governance is not just law—it’s how power flows, who decides, and how communities shape their futures.", tags: ["Society"] },
+        { id: "economics", title: "Economics", oneLiner: "Money, work, and sharing.", iconName: "DollarSign", extendedDescription: "Economics must evolve beyond growth. It should reflect care, value exchange, commons, and dignity.", tags: ["Society"] },
+        { id: "work", title: "Work", oneLiner: "Jobs, machines, and meaning.", iconName: "Briefcase", extendedDescription: "Work defines identity, contribution, and survival. Automation demands we rethink purpose and livelihood.", tags: ["Society"] },
+        { id: "power", title: "Power", oneLiner: "Influence, justice, and control.", iconName: "BatteryCharging", extendedDescription: "Power is present in all systems—visible and hidden. Design must reveal, question, and redistribute it.", tags: ["Society"] },
+        { id: "trust", title: "Trust", oneLiner: "Building honesty and teamwork.", iconName: "Handshake", extendedDescription: "Trust is infrastructure. It’s emotional, social, and systemic—built slowly and broken quickly.", tags: ["Society"] },
+        { id: "conflict", title: "Conflict", oneLiner: "Dealing with tension and change.", iconName: "Swords", extendedDescription: "Conflict isn’t failure—it’s a moment of friction that can lead to truth, growth, or rupture. Design for healing.", tags: ["Society"] },
+        { id: "gender", title: "Gender", oneLiner: "Equality and identity.", iconName: "VenusMars", extendedDescription: "Gender intersects every aspect of design. Recognizing and correcting bias leads to equity and deeper insight.", tags: ["Society"] },
+        { id: "migration", title: "Migration", oneLiner: "Moving, borders, and identity.", iconName: "Plane", extendedDescription: "Migration is movement, memory, and struggle. Borders are lines of both limitation and transformation.", tags: ["Society"] },
+        { id: "time", title: "Time", oneLiner: "How fast or slow things happen.", iconName: "Clock", extendedDescription: "Time is not neutral—it is cultural, economic, and political. Design must recognize rhythms beyond speed.", tags: ["Temporal"] },
+        { id: "death", title: "Death", oneLiner: "Loss, memory, and meaning.", iconName: "Skull", extendedDescription: "Death invites reflection. It reminds us to design with care, legacy, and love.", tags: ["Existential"] },
+        { id: "joy", title: "Joy", oneLiner: "Fun, play, and design that feels good.", iconName: "Smile", extendedDescription: "Joy is resistance. It's not trivial—it sustains life, brings connection, and humanizes systems.", tags: ["Emotional/Experiential"] },
+        { id: "the-unknown", title: "The Unknown", oneLiner: "Mystery and open questions.", iconName: "HelpCircle", extendedDescription: "The Unknown is a design partner. It pushes us to stay humble, curious, and creative in every discipline.", tags: ["Existential"] },
+        { id: "food", title: "Food", oneLiner: "What we eat and how it’s shared.", iconName: "Apple", extendedDescription: "Food is not just sustenance—it’s memory, identity, ritual, and power. Design must respect food systems holistically.", tags: ["Essentials"] },
+        { id: "health", title: "Health", oneLiner: "Caring for bodies and minds.", iconName: "HeartPulse", extendedDescription: "Health includes wellness, care systems, and collective thriving. It demands integration—not isolation—from other Realities.", tags: ["Essentials"] },
+        { id: "land", title: "Land", oneLiner: "Owning, using, and remembering places.", iconName: "Mountain", extendedDescription: "Land holds conflict, culture, and community. Design must address dispossession, stewardship, and belonging.", tags: ["Essentials"] },
+        { id: "media", title: "Media", oneLiner: "Who tells stories and how.", iconName: "Tv", extendedDescription: "Media creates truth, shapes opinion, and spreads emotion. Designing with media is designing with influence.", tags: ["Communication"] }
       ]
   }
 };
+
