@@ -1,4 +1,3 @@
-
 // src/components/sections/use-cases-section.tsx
 'use client';
 
@@ -78,7 +77,7 @@ export function UseCasesSection({ content }: { content?: UseCasesSectionContent 
               {category.link && (
                 <div className="p-4 pt-0 mt-auto">
                   <Button asChild variant="link" className="text-primary p-0">
-                    <Link href={category.link}>
+                    <Link href={category.link} aria-label={`Learn more about ${category.title}`}>
                       Learn More <ArrowRight className="ml-1 h-4 w-4" />
                     </Link>
                   </Button>
@@ -97,5 +96,3 @@ export function UseCasesSection({ content }: { content?: UseCasesSectionContent 
     </motion.section>
   );
 }
-
-    

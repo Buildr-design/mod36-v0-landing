@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+# Sitemap: [your_sitemap_url_here] # Add your sitemap URL when available

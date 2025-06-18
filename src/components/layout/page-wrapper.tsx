@@ -2,8 +2,16 @@
 'use client';
 
 import { useState, useEffect, PropsWithChildren } from 'react';
-import { VersionLogModal } from '@/components/modals/version-log-modal';
-import { EasterEggModal } from '@/components/modals/easter-egg-modal';
+import dynamic from 'next/dynamic';
+
+const VersionLogModal = dynamic(() =>
+  import('@/components/modals/version-log-modal').then((mod) => mod.VersionLogModal),
+  { ssr: false } 
+);
+const EasterEggModal = dynamic(() =>
+  import('@/components/modals/easter-egg-modal').then((mod) => mod.EasterEggModal),
+  { ssr: false }
+);
 
 export function PageWrapper({ children }: PropsWithChildren) {
   const [showVersionLog, setShowVersionLog] = useState(false);
@@ -40,8 +48,8 @@ export function PageWrapper({ children }: PropsWithChildren) {
           {children}
         </div>
       </div>
-      <VersionLogModal isOpen={showVersionLog} onOpenChange={setShowVersionLog} />
-      <EasterEggModal isOpen={showEasterEgg} onOpenChange={setShowEasterEgg} />
+      {showVersionLog && <VersionLogModal isOpen={showVersionLog} onOpenChange={setShowVersionLog} />}
+      {showEasterEgg && <EasterEggModal isOpen={showEasterEgg} onOpenChange={setShowEasterEgg} />}
     </>
   );
 }

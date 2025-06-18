@@ -1,4 +1,3 @@
-
 // src/components/sections/realities-grid-section.tsx
 'use client';
 
@@ -12,9 +11,14 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PoeticizerButton } from '@/components/poeticizer-button';
-import { RealityInsightGeneratorModal } from '@/components/modals/reality-insight-generator-modal'; // New Import
 import { cn } from '@/lib/utils';
 import { BrainCircuit } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const RealityInsightGeneratorModal = dynamic(() =>
+  import('@/components/modals/reality-insight-generator-modal').then((mod) => mod.RealityInsightGeneratorModal),
+  { ssr: false }
+);
 
 
 const sectionVariants = {
@@ -47,7 +51,7 @@ export function RealitiesGridSection({ content }: { content?: RealitiesGridSecti
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const [selectedReality, setSelectedReality] = useState<RealityItem | null>(null);
-  const [showInsightGeneratorModal, setShowInsightGeneratorModal] = useState(false); // New state
+  const [showInsightGeneratorModal, setShowInsightGeneratorModal] = useState(false); 
 
   if (!content || !content.realities) return null;
 
@@ -180,11 +184,11 @@ export function RealitiesGridSection({ content }: { content?: RealitiesGridSecti
           </DialogContent>
         </Dialog>
       )}
-      <RealityInsightGeneratorModal 
+      {showInsightGeneratorModal && <RealityInsightGeneratorModal 
         isOpen={showInsightGeneratorModal}
         onOpenChange={setShowInsightGeneratorModal}
         realities={content.realities}
-      />
+      />}
     </motion.section>
   );
 }
