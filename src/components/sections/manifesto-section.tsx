@@ -15,39 +15,43 @@ const lineVariants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.6, 0.01, 0.05, 0.95], // Note: Original was [0.6, 0.01, -0.05, 0.95] which caused error, corrected in previous step.
+      ease: [0.6, 0.01, 0.05, 0.95], 
     },
   },
 };
 
-export function ManifestoSection({ content }: { content?: ManifestoSectionContent }) { // Make content prop optional
+export function ManifestoSection({ content }: { content?: ManifestoSectionContent }) {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  // Guard against undefined content or content.lines
-  if (!content || !content.lines || !Array.isArray(content.lines) || content.lines.length === 0) {
-    // console.error("ManifestoSection: Invalid or missing content.lines. Content:", content);
-    // Return null or a fallback UI if content is not as expected.
-    // For now, rendering nothing to prevent a crash.
-    return null;
+  // Stricter guard:
+  // 1. Ensure 'content' object exists.
+  // 2. Ensure 'content.lines' is an array.
+  if (!content || !Array.isArray(content.lines)) {
+    // console.warn("ManifestoSection: 'content' prop is invalid or 'content.lines' is not an array. Content:", content);
+    return null; // Exit early if critical data is missing or malformed
   }
 
+  // At this point, 'content' is a valid object and 'content.lines' is an array (it could be empty).
+  const { lines, title, ctaButtonText } = content;
+
   // Calculate the delay for the last line to start animating.
-  const lastLineAnimationStartDelay = content.lines.length > 0 ? (content.lines.length - 1) * 0.4 : 0;
+  // If there are lines, it's (number of lines - 1) * stagger time.
+  // If no lines or 1 line, this base delay is 0.
+  const lastLineAnimationStartDelay = lines.length > 0 ? (lines.length - 1) * 0.4 : 0;
   // The last line's animation duration is 0.8s.
   const buttonAppearDelay = lastLineAnimationStartDelay + 0.8 + 0.2; // Start 0.2s after last line finishes.
   const faintLineAppearDelay = buttonAppearDelay + 0.3; // Start 0.3s after button starts.
-
 
   return (
     <section
       id="manifesto"
       ref={sectionRef}
       className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 relative bg-background text-center"
-      aria-label={content.title || "Manifesto Section"}
+      aria-label={title || "Manifesto Section"}
     >
       <div className="max-w-3xl w-full space-y-10 md:space-y-16">
-        {content.lines.map((line, index) => (
+        {lines.map((line, index) => (
           <motion.div
             key={index}
             className="relative group"
@@ -68,7 +72,7 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
         ))}
       </div>
 
-      {content.ctaButtonText && (
+      {ctaButtonText && (
         <motion.div
           className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -77,7 +81,7 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
         >
           <Link href="/manifesto" passHref>
             <Button variant="outline" size="lg" className="bg-transparent hover:bg-primary/10 hover:text-primary border-primary text-primary">
-              {content.ctaButtonText} <span className="ml-2">→</span>
+              {ctaButtonText} <span className="ml-2">→</span>
             </Button>
           </Link>
         </motion.div>

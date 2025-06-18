@@ -36,7 +36,7 @@ export interface ModulesSectionContent {
   exploreButtonText: string;
 }
 
-export interface ManifestoSectionContent {
+export interface ManifestoSectionContent { // For the homepage snippet
   title: string;
   lines: Array<{ text: string }>;
   ctaButtonText: string;
@@ -44,8 +44,8 @@ export interface ManifestoSectionContent {
 
 export interface SocialLink {
   name: string;
-  Icon?: React.ComponentType<{ className?: string }>; // Made Icon optional
-  iconName?: string; // For cases where direct import is tricky in data file
+  Icon?: React.ComponentType<{ className?: string }>; 
+  iconName?: string; 
   url: string;
   ariaLabel: string;
 }
@@ -63,11 +63,11 @@ export interface HomeContent {
   heroSection: HeroSectionContent;
   aboutSection: AboutSectionContent;
   modulesSection: ModulesSectionContent;
-  manifestoSection: ManifestoSectionContent; // Ensuring this is part of HomeContent
+  manifestoSection: ManifestoSectionContent; // Content for the homepage section/snippet
   footerSection: FooterSectionContent;
 }
 
-export interface ManifestoPageContent {
+export interface ManifestoPageContent { // For the dedicated /manifesto page
   title: string;
   subtitle: string;
   backButtonText: string;
@@ -143,9 +143,9 @@ export const siteContent: SiteContent = {
       ],
       exploreButtonText: "Explore →",
     },
-    manifestoSection: { // This is the critical part
+    manifestoSection: { // This is for the homepage snippet
       title: "The Mod36 Manifesto (Signal)",
-      lines: [
+      lines: [ // Ensure this 'lines' array is present and correct
         { text: "We start where systems break." },
         { text: "We see patterns in complexity." },
         { text: "We build from first principles." },
@@ -159,12 +159,12 @@ export const siteContent: SiteContent = {
       socialLinks: [
         { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
         { name: 'GitHub', iconName: 'Github', url: 'https://github.com/mod36', ariaLabel: 'Mod36 GitHub Profile' },
-        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' }, // Send as placeholder
+        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
         { name: 'X', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X (Twitter) Profile' },
-        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' }, // Send as placeholder
+        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' },
         { name: 'Facebook', iconName: 'Facebook', url: 'https://facebook.com/mod36', ariaLabel: 'Mod36 Facebook Profile' },
         { name: 'Instagram', iconName: 'Instagram', url: 'https://instagram.com/mod36', ariaLabel: 'Mod36 Instagram Profile' },
-        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' }, // Send as placeholder
+        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' },
       ],
       copyrightText: "© {year} mod36. All rights reserved.",
       lastUpdatedPrefix: "Last updated:",
