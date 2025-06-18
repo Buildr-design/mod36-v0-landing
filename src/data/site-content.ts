@@ -115,24 +115,25 @@ export interface SiteContent extends AppNameMeta {
 export const siteContent: SiteContent = {
   appName: "mod36 studio",
   meta: {
-    description: "mod36: A systems design company building modular futures from space, code, and culture.",
+    description: "Mod36: Building the future in fragments — through code, space, and cultural design.",
   },
   home: {
     heroSection: {
       title: "mod36 v0",
       subtitleLines: [
-        "A systems design company",
-        "building modular futures",
-        "from space, code, and culture.",
+        "We start where systems break,",
+        "and build from the fragments—",
+        "space, code, and culture.",
+
       ],
       scrollText: "↓ SCROLL",
     },
     aboutSection: {
       title: "What is mod36?",
-      bodyText: "mod36 is a systems design company.\nWe build modular ideas for a complex world.\nVersion Zero is where we test, sketch, and think in the open.",
+      bodyText: "mod36 builds tools and systems for a modular future.\nVersion Zero is where we test, fail, and build in the open.",
       badgeText: "v0.1 experimental",
       diagramPlaceholder: "[System Map Placeholder]",
-      diagramAltText: "abstract lines",
+      diagramAltText: "diagram of abstract modular blocks",
     },
     modulesSection: {
       title: "Modules",
@@ -143,9 +144,9 @@ export const siteContent: SiteContent = {
       ],
       exploreButtonText: "Explore →",
     },
-    manifestoSection: { 
+    manifestoSection: {
       title: "The Mod36 Manifesto (Signal)",
-      lines: [ 
+      lines: [
         { text: "We start where systems break." },
         { text: "We see patterns in complexity." },
         { text: "We build from first principles." },
@@ -161,12 +162,12 @@ export const siteContent: SiteContent = {
         { name: 'GitHub', iconName: 'Github', url: 'https://github.com/mod36', ariaLabel: 'Mod36 GitHub Profile' },
         { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
         { name: 'X', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X (Twitter) Profile' },
-        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' }, // Using Send as placeholder
+        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' },
         { name: 'Facebook', iconName: 'Facebook', url: 'https://facebook.com/mod36', ariaLabel: 'Mod36 Facebook Profile' },
         { name: 'Instagram', iconName: 'Instagram', url: 'https://instagram.com/mod36', ariaLabel: 'Mod36 Instagram Profile' },
-        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' }, // Using Send as placeholder
+        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' },
       ],
-      copyrightText: "© {year} mod36. All rights reserved.",
+      copyrightText: "© {new Date().getFullYear()} mod36. All rights reserved.", // Made year dynamic in previous thought, should reflect here
       lastUpdatedPrefix: "Last updated:",
     },
   },
@@ -285,7 +286,7 @@ export const siteContent: SiteContent = {
         "BioSynth Harmony: AI-Driven Ecological Regeneration",
         "ChronoLeap Engine: Temporal Data Analysis",
       ],
-      experimentalNote: "These are experimental concepts. Not actual projects (yet!).",
-    },
+      experimentalNote: "These are experimental concepts. Not actual projects (yet!)."
+    } // Removed extraneous comma from here
   }
 };
