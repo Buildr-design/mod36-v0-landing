@@ -15,7 +15,7 @@ const lineVariants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.6, 0.01, 0.05, 0.95], 
+      ease: [0.6, 0.01, 0.05, 0.95],
     },
   },
 };
@@ -58,7 +58,7 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={lineVariants}
-            custom={index} 
+            custom={index}
             style={{ transitionDelay: isInView ? `${index * 0.4}s` : '0s' }}
           >
             <p className="font-headline text-3xl md:text-5xl font-bold text-foreground leading-tight">
@@ -86,7 +86,7 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
           </Link>
         </motion.div>
       )}
-      
+
       <motion.div
         className="absolute left-1/2 bottom-10 h-16 w-px bg-primary/30"
         initial={{ scaleY: 0, originY: 0 }}

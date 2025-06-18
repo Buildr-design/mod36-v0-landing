@@ -27,7 +27,7 @@ export interface ModuleContent {
   tagline: string;
   description: string;
   imageHint: string;
-  imageUrl?: string; 
+  imageUrl?: string;
 }
 
 export interface ModulesSectionContent {
@@ -44,8 +44,8 @@ export interface ManifestoSectionContent { // For the homepage snippet
 
 export interface SocialLink {
   name: string;
-  Icon?: React.ComponentType<{ className?: string }>; 
-  iconName?: string; 
+  Icon?: React.ComponentType<{ className?: string }>;
+  iconName?: string;
   url: string;
   ariaLabel: string;
 }
