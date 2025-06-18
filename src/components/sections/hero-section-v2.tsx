@@ -50,7 +50,7 @@ export function HeroSectionV2({ content }: { content?: HeroSectionRevisedContent
           <rect width="100%" height="100%" fill="url(#heroGridV0)" />
         </svg>
       </div>
-      <div 
+      <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: 'radial-gradient(circle, hsl(var(--primary) / 0.06) 0%, transparent 55%)',
@@ -77,25 +77,51 @@ export function HeroSectionV2({ content }: { content?: HeroSectionRevisedContent
         >
           {content.tagline}
         </motion.h2>
-        
+
         {content.introParagraph.map((paragraph, index) => (
           <motion.p
             key={index}
-            className="font-body text-base md:text-lg text-muted-foreground max-w-2xl mb-4 last:mb-0"
+            className="font-body text-base md:text-lg text-muted-foreground max-w-2xl mb-4 last:mb-10"
             variants={itemVariants}
           >
             {paragraph}
           </motion.p>
         ))}
+         {content.ctaButtons && content.ctaButtons.length > 0 && (
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 mt-2"
+            variants={itemVariants}
+          >
+            {content.ctaButtons.map((cta, index) => {
+              const CtaIconComponent = cta.icon && typeof cta.icon === 'string'
+                ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon)
+                : (cta.icon as LucideIcons.LucideIcon | undefined);
+              return (
+                <Button
+                  key={index}
+                  asChild
+                  variant={cta.variant || 'default'}
+                  size="lg"
+                  className={cta.variant === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border-primary text-primary hover:bg-primary/10'}
+                >
+                  <Link href={cta.href} target={cta.href.startsWith('http') || cta.href.startsWith('mailto:') ? '_blank' : '_self'}>
+                    {CtaIconComponent && <CtaIconComponent className="mr-2 h-5 w-5" />}
+                    {cta.text}
+                  </Link>
+                </Button>
+              );
+            })}
+          </motion.div>
+        )}
       </motion.div>
-      
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: [0, 0.5, 1, 0.5, 0] }}
-        transition={{ 
+        transition={{
           delay: 2.5,
-          duration: 2, 
-          repeat: Infinity, 
+          duration: 2,
+          repeat: Infinity,
           ease: "easeInOut",
           repeatDelay: 1
         }}

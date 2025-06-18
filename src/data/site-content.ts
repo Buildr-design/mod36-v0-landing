@@ -7,7 +7,7 @@ export interface CTAButton {
   text: string;
   href: string;
   variant?: 'default' | 'outline' | 'secondary' | 'ghost' | 'link';
-  icon?: LucideIcon | string; 
+  icon?: LucideIcon | string;
 }
 
 export interface FooterLink {
@@ -17,7 +17,7 @@ export interface FooterLink {
 
 export interface SocialLink {
   name: string;
-  iconName?: string; 
+  iconName?: string;
   url: string;
   ariaLabel: string;
 }
@@ -27,19 +27,19 @@ export interface SocialLink {
 export interface HeroSectionRevisedContent {
   headline: string;
   tagline: string;
-  introParagraph: string[]; // Array of strings for multi-line paragraph
+  introParagraph: string[];
   backgroundVisualHint: string;
+  ctaButtons?: CTAButton[]; // Made optional and array for flexibility
 }
 
 export interface CoreFeatureItem {
   title: string;
   description: string;
-  iconName: string; // Lucide icon name
+  iconName: string;
 }
 export interface CoreFeaturesSectionContent {
   title: string;
   features: CoreFeatureItem[];
-  visualHint?: string;
   visualDataAiHint?: string;
 }
 
@@ -47,11 +47,10 @@ export interface CallToActionContent {
   title: string;
   mainText: string;
   ctaButton: CTAButton;
-  visualHint?: string;
   visualDataAiHint?: string;
 }
 
-export interface FooterV0Content { // Keeping name for now, content is similar
+export interface FooterV0Content {
   brandLine: string;
   links: FooterLink[];
   socialLinks: SocialLink[];
@@ -61,8 +60,8 @@ export interface FooterV0Content { // Keeping name for now, content is similar
 // --- Main Site Content Structure (Revised) ---
 export interface HomeRevisedContent {
   heroSection: HeroSectionRevisedContent;
-  keyFeaturesSection: CoreFeaturesSectionContent; // Re-using KeyFeaturesSection for Core Features
-  communitySection: CallToActionContent; // Re-using CommunityMovementSection for Call to Action
+  keyFeaturesSection: CoreFeaturesSectionContent;
+  communitySection: CallToActionContent;
   footerSection: FooterV0Content;
 }
 
@@ -71,7 +70,7 @@ export interface RealityItem {
   id: string;
   title: string;
   oneLiner: string;
-  iconName: string; 
+  iconName: string;
   extendedDescription?: string;
   tags?: string[];
 }
@@ -117,19 +116,44 @@ export interface ModalsContent {
   };
 }
 
+// --- Whitepaper Page Interfaces ---
+export interface WhitepaperSubSectionContent {
+  title?: string;
+  paragraphs: string[];
+  listItems?: string[];
+}
+
+export interface WhitepaperSectionContent {
+  id: string; // For scroll linking if needed
+  title: string;
+  paragraphs?: string[];
+  subsections?: WhitepaperSubSectionContent[];
+  listItems?: string[]; // For simple lists directly under a section
+}
+
+export interface WhitepaperPageContent {
+  pageTitle: string;
+  pageTagline: string;
+  backButtonText: string;
+  sections: WhitepaperSectionContent[];
+  finalTagline: string;
+}
+
+
 // --- Root Site Content Interface ---
 export interface AppNameMeta {
-  appName: string; 
-  brandTagline: string; // General tagline for the brand
+  appName: string;
+  brandTagline: string;
   meta: {
     description: string;
   };
 }
 export interface SiteContent extends AppNameMeta {
-  home: HomeRevisedContent; // Specific to revised landing page
-  manifestoPage: ManifestoPageContent; 
-  modals: ModalsContent; 
-  realitiesDataForAI: RealitiesDataForAI; 
+  home: HomeRevisedContent;
+  manifestoPage: ManifestoPageContent;
+  whitepaperPage: WhitepaperPageContent; // Added whitepaper content
+  modals: ModalsContent;
+  realitiesDataForAI: RealitiesDataForAI;
 }
 
 
@@ -148,8 +172,12 @@ export const siteContent: SiteContent = {
         "Whether you’re developing sustainable buildings, crafting AI workflows, creating decentralized platforms, or imagining new ways to educate and connect communities, Mod36 adapts with you. It’s a living system designed to evolve with your ideas, scale with your vision, and help you prototype the future — one modular piece at a time."
       ],
       backgroundVisualHint: "abstract intelligent system dark connections",
+      ctaButtons: [
+        { text: "Read the Whitepaper", href: "/whitepaper", variant: "default", icon: "FileText" },
+        { text: "Join the Community", href: "#footer-v0", variant: "outline", icon: "Users" }
+      ]
     },
-    keyFeaturesSection: { // Re-purposed for "Core Features"
+    keyFeaturesSection: {
       title: "Core Features",
       features: [
         { title: "Universal Modularity", description: "Break complex challenges into flexible, reusable components that can be combined and adapted.", iconName: "Puzzle" },
@@ -158,34 +186,33 @@ export const siteContent: SiteContent = {
         { title: "Culturally Rooted", description: "Designed to respect and integrate diverse cultural perspectives and knowledge systems.", iconName: "Globe2" },
         { title: "Open and Collaborative", description: "Built for sharing, iteration, and collective innovation.", iconName: "Users2" },
       ],
-      visualHint: "",
       visualDataAiHint: "interconnected modules abstract",
     },
-    communitySection: { // Re-purposed for "Call to Action"
-      title: "Join the Movement", // A more engaging title for the section
+    communitySection: {
+      title: "Join the Movement",
       mainText: "Join the Mod36 community and start designing the future — whatever it looks like.",
-      ctaButton: { text: "Join the Community", href: "#footer-v0", variant: "default", icon: "Users" }, // Link to footer for contact/socials for now
-      visualHint: "",
+      ctaButton: { text: "Get Involved", href: "#footer-v0", variant: "default", icon: "Users" },
       visualDataAiHint: "community collaboration abstract",
     },
     footerSection: {
       brandLine: "Mod36 – Design. Connect. Evolve.",
       links: [
-        { text: "Whitepaper", href: "/whitepaper.pdf" },
-        { text: "GitHub", href: "https://github.com/mod36" }, 
-        { text: "Community", href: "#" }, // Placeholder
+        { text: "Whitepaper", href: "/whitepaper" },
+        { text: "GitHub", href: "https://github.com/mod36" },
+        { text: "Community", href: "#footer-v0" },
         { text: "Contact", href: "mailto:hello@mod36.xyz" },
       ],
       socialLinks: [
         { name: 'LinkedIn', iconName: 'Linkedin', url: 'https://linkedin.com/company/mod36', ariaLabel: 'Mod36 LinkedIn Profile' },
         { name: 'X (Twitter)', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X/Twitter Profile' },
-        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' }, 
+        { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
       ],
       copyrightText: `© ${new Date().getFullYear()} Mod36. All rights reserved. Licensed under Apache 2.0.`,
     },
   },
-  manifestoPage: { 
+  manifestoPage: {
     title: "Mod36 Executive Summary",
+    subtitle: "Modular Intelligence for a Changing World.",
     backButtonText: "← Back to Home",
     sections: [
        {
@@ -204,13 +231,9 @@ export const siteContent: SiteContent = {
         ],
       },
       {
+        heading: "A Call to Action",
         paragraphs: [
-          "Mod36 is not a product. It is a movement. A shared language for rethinking how we shape life on Earth—responsibly, intelligently, and together."
-        ],
-        isBold: true,
-      },
-      {
-        paragraphs: [
+          "Mod36 is not a product. It is a movement. A shared language for rethinking how we shape life on Earth—responsibly, intelligently, and together.",
           "This is a call to architects of the future—those willing to build not just structures or software, but systems of meaning."
         ],
         isBold: true,
@@ -220,16 +243,147 @@ export const siteContent: SiteContent = {
       line1: "36 Realities. One Modular Future.",
       line2: "Welcome to Mod36."
     },
-    signature: "Mod36",
+    signature: "The Mod36 Initiative",
   },
-  modals: { 
+  whitepaperPage: {
+    pageTitle: "Mod36: A Universal Modular Design System for the Future",
+    pageTagline: "Design Tools for Anything. Build Systems for Every Future.",
+    backButtonText: "← Back to Home",
+    sections: [
+      {
+        id: "executive-summary",
+        title: "1. Executive Summary",
+        paragraphs: [
+          "Mod36 is an innovative, flexible modular design framework created to empower individuals and organizations across all domains—architecture, artificial intelligence, Web3, technology, education, culture, and beyond. Unlike narrowly focused solutions, Mod36 offers a versatile toolkit and methodology for designing tools, systems, and solutions for any challenge the future presents.",
+          "By embracing modularity, systems thinking, AI-enhanced design, and deep cultural integration, Mod36 facilitates the creation of adaptable, scalable, and contextually relevant innovations. Whether developing sustainable environments, AI workflows, decentralized networks, or novel educational paradigms, Mod36 supports creators in prototyping, iterating, and deploying impactful solutions.",
+          "This whitepaper outlines the philosophy, system architecture, potential applications, and roadmap of Mod36, inviting collaboration and continuous evolution of the framework."
+        ]
+      },
+      {
+        id: "introduction",
+        title: "2. Introduction",
+        subsections: [
+          {
+            title: "2.1 Context",
+            paragraphs: [
+              "Today’s rapidly evolving world presents multifaceted challenges and opportunities that span technology, environment, society, and culture. Traditional design methods often lack the flexibility and interdisciplinary integration needed to address these complexities comprehensively. Furthermore, the accelerating pace of innovation demands frameworks that support continuous adaptation and diverse stakeholder collaboration.",
+              "Mod36 responds to this need by providing a universal modular design system. It reimagines design as a process not confined to any single discipline or problem space but as an open-ended toolkit adaptable to a wide spectrum of creative and systemic endeavors."
+            ]
+          },
+          {
+            title: "2.2 Purpose",
+            paragraphs: [
+              "The purpose of Mod36 is to democratize and expand the capacity to design effective tools and systems for the future. It aims to bridge diverse fields by fostering modularity, intelligent assistance, and cultural resonance, thus enabling creators to tackle novel problems with agility and depth."
+            ]
+          }
+        ]
+      },
+      {
+        id: "philosophy",
+        title: "3. The Philosophy of Mod36",
+        subsections: [
+          {
+            title: "3.1 Modularity as a Design Paradigm",
+            paragraphs: ["At its core, Mod36 adopts modularity as a foundational principle. Breaking down complexity into interoperable components allows for flexible recombination, scalability, and tailored adaptation to unique contexts and goals."]
+          },
+          {
+            title: "3.2 Systems Thinking Across Domains",
+            paragraphs: ["Mod36 encourages holistic understanding by framing problems and solutions within interconnected systems. This approach reveals emergent patterns and leverage points across disciplines, empowering designers to craft integrated, resilient innovations."]
+          },
+          {
+            title: "3.3 Cultural Intelligence and Inclusion",
+            paragraphs: ["Recognizing that culture shapes how solutions succeed, Mod36 embeds cultural awareness and inclusivity at every stage. It values indigenous knowledge, local practices, and diverse worldviews as essential elements of sustainable and meaningful design."]
+          },
+          {
+            title: "3.4 AI-Augmented Creativity",
+            paragraphs: ["Artificial intelligence acts as a collaborator within Mod36, offering insights, optimization, and generative possibilities. AI enhances human creativity without replacing it, fostering explorations beyond traditional limits."]
+          },
+          {
+            title: "3.5 Open Collaboration and Evolution",
+            paragraphs: ["Mod36 is conceived as an open, evolving framework, welcoming contributions from designers, technologists, educators, artists, and communities worldwide. Its open-source ethos promotes continuous refinement and shared ownership."]
+          }
+        ]
+      },
+      {
+        id: "system-architecture",
+        title: "4. System Architecture and Components",
+        subsections: [
+          {
+            title: "4.1 Modular Toolkit",
+            paragraphs: ["Mod36 provides a library of modular components—design templates, code snippets, workflow modules, conceptual frameworks—that can be combined to create complex solutions in architecture, AI, Web3, and other fields."]
+          },
+          {
+            title: "4.2 AI-Enhanced Design Engine",
+            paragraphs: ["Integrated AI tools assist users in modeling scenarios, optimizing designs, and generating novel configurations, accelerating iteration cycles and expanding creative horizons."]
+          },
+          {
+            title: "4.3 Cultural Context Layer",
+            paragraphs: ["A dynamic knowledge base enriches modules with localized cultural data, enabling context-aware adaptation and fostering culturally responsive outcomes."]
+          },
+          {
+            title: "4.4 Integration Interfaces",
+            paragraphs: ["Mod36 supports interoperability with existing design software, coding environments, and collaboration platforms, ensuring smooth adoption and extensibility."]
+          }
+        ]
+      },
+      {
+        id: "use-cases",
+        title: "5. Use Cases",
+        subsections: [
+          {
+            title: "5.1 Architecture and Urban Planning",
+            paragraphs: ["Design modular, sustainable buildings and communities that adapt to environmental and cultural contexts using flexible components and AI optimization."]
+          },
+          {
+            title: "5.2 Artificial Intelligence",
+            paragraphs: ["Develop AI workflows and models informed by ethical frameworks, cultural insights, and system-level thinking for responsible innovation."]
+          },
+          {
+            title: "5.3 Web3 and Decentralized Systems",
+            paragraphs: ["Build modular smart contracts, governance models, and decentralized applications that can evolve with community needs and technological progress."]
+          },
+          {
+            title: "5.4 Education and Knowledge Systems",
+            paragraphs: ["Create modular curricula, learning tools, and collaborative platforms that empower learners and educators across disciplines."]
+          },
+          {
+            title: "5.5 Cultural and Creative Industries",
+            paragraphs: ["Foster new forms of storytelling, artistic expression, and cultural preservation by combining modular digital and physical media."]
+          }
+        ]
+      },
+      {
+        id: "roadmap",
+        title: "6. Roadmap",
+        listItems: [
+          "v0 (Current): Establish core framework, publish whitepaper, initiate community building.",
+          "v1 (6–12 Months): Develop modular component libraries, AI design tools, cultural knowledge integration, pilot projects.",
+          "v2 (1–2 Years): Expand cross-domain adoption, build integration interfaces, grow global contributor network.",
+          "Future: Mature into a comprehensive universal design ecosystem, supporting global innovation, sustainability, and cultural resilience."
+        ]
+      },
+      {
+        id: "conclusion",
+        title: "7. Conclusion",
+        paragraphs: [
+          "Mod36 redefines design as a universal, modular, and intelligent process capable of addressing the complexity and diversity of future challenges. By equipping creators with flexible tools and inclusive frameworks, it enables the co-creation of resilient systems that honor cultural depth and technological potential."
+        ]
+      }
+    ],
+    finalTagline: "Mod36: Design tools for anything. Build systems for every future."
+  },
+  modals: {
     versionLog: {
       title: "Version Logs",
-      description: "Tracking the evolution of ModVerse.",
+      description: "Tracking the evolution of the Mod36 initiative.",
       logs: [
+        { version: "v0.7.0", date: "2024-08-03", notes: ["Added animated Whitepaper page with full content.", "Updated homepage CTAs to link to the new Whitepaper page."]},
+        { version: "v0.6.1", date: "2024-08-02", notes: ["Removed visual placeholder text from Core Features and Call to Action sections."]},
         { version: "v0.6.0", date: "2024-08-02", notes: ["Major landing page revision to 'Modular Design System for Anything and Everything' theme.", "Updated Hero, Core Features, and Call to Action sections.", "Streamlined homepage structure."]},
         { version: "v0.5.0", date: "2024-08-01", notes: ["Major landing page overhaul to 'Mod36 v0' structure and content.", "Updated site metadata for v0 branding.", "Removed Problem, HowItWorks, and RealitiesGrid sections from homepage."]},
+        { version: "v0.4.1", date: "2024-07-31", notes: ["Fixed 'React is not defined' error in RealitiesGridSection."]},
         { version: "v0.4.0", date: "2024-07-31", notes: ["Major landing page overhaul to new 7-section structure.", "Updated content and components as per new brief.", "Removed RealitiesGridSection from homepage."]},
+        { version: "v0.3.2", date: "2024-07-30", notes: ["Fixed Lighthouse reported issues: Dynamic imports for modals, added robots.txt, improved link descriptions."]},
         { version: "v0.3.1", date: "2024-07-30", notes: ["Integrated AI Insight Generator modal, triggered from Realities Grid."]},
         { version: "v0.3.0", date: "2024-07-30", notes: ["Redesigned '36 Realities' section with detailed content and interactive grid.", "Updated RealityItem interface and data structure."]},
         { version: "v0.2.0", date: "2024-07-29", notes: ["Major landing page redesign to 9-section structure based on new brief.", "Centralized all site content into site-content.ts with new data structures for each section."]},
@@ -250,7 +404,7 @@ export const siteContent: SiteContent = {
       experimentalNote: "These are experimental concepts. Not actual projects (yet!)."
     }
   },
-  realitiesDataForAI: { 
+  realitiesDataForAI: {
     realities: [
         { id: "housing", title: "Housing", oneLiner: "Where we live and how it feels.", iconName: "Home", extendedDescription: "Housing is more than shelter—it reflects dignity, culture, security, and identity. It’s about affordability, spatial justice, adaptability, and emotional connection to place.", tags: ["Built Environment"] },
         { id: "infrastructure", title: "Infrastructure", oneLiner: "Roads, pipes, and connections.", iconName: "Network", extendedDescription: "Infrastructure includes the physical and digital systems that support modern life. It shapes access to opportunity, equity, and resilience in crisis.", tags: ["Built Environment"] },
