@@ -45,7 +45,7 @@ export interface ManifestoSectionContent { // For the homepage snippet
 export interface SocialLink {
   name: string;
   Icon?: React.ComponentType<{ className?: string }>;
-  iconName?: string;
+  iconName?: string; // To store the name of the Lucide icon
   url: string;
   ariaLabel: string;
 }
@@ -143,9 +143,9 @@ export const siteContent: SiteContent = {
       ],
       exploreButtonText: "Explore →",
     },
-    manifestoSection: { // This is for the homepage snippet
+    manifestoSection: { 
       title: "The Mod36 Manifesto (Signal)",
-      lines: [ // Ensure this 'lines' array is present and correct
+      lines: [ 
         { text: "We start where systems break." },
         { text: "We see patterns in complexity." },
         { text: "We build from first principles." },
@@ -161,10 +161,10 @@ export const siteContent: SiteContent = {
         { name: 'GitHub', iconName: 'Github', url: 'https://github.com/mod36', ariaLabel: 'Mod36 GitHub Profile' },
         { name: 'Threads', iconName: 'Send', url: 'https://threads.net/@mod36', ariaLabel: 'Mod36 Threads Profile' },
         { name: 'X', iconName: 'Twitter', url: 'https://x.com/mod36', ariaLabel: 'Mod36 X (Twitter) Profile' },
-        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' },
+        { name: 'Mastodon', iconName: 'Send', url: 'https://mastodon.social/@mod36', ariaLabel: 'Mod36 Mastodon Profile' }, // Using Send as placeholder
         { name: 'Facebook', iconName: 'Facebook', url: 'https://facebook.com/mod36', ariaLabel: 'Mod36 Facebook Profile' },
         { name: 'Instagram', iconName: 'Instagram', url: 'https://instagram.com/mod36', ariaLabel: 'Mod36 Instagram Profile' },
-        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' },
+        { name: 'Substack', iconName: 'Send', url: 'https://mod36.substack.com', ariaLabel: 'Mod36 Substack Profile' }, // Using Send as placeholder
       ],
       copyrightText: "© {year} mod36. All rights reserved.",
       lastUpdatedPrefix: "Last updated:",

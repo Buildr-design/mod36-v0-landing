@@ -24,24 +24,16 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
-  // Stricter guard:
-  // 1. Ensure 'content' object exists.
-  // 2. Ensure 'content.lines' is an array.
-  if (!content || !Array.isArray(content.lines)) {
-    // console.warn("ManifestoSection: 'content' prop is invalid or 'content.lines' is not an array. Content:", content);
-    return null; // Exit early if critical data is missing or malformed
+  if (!content || !Array.isArray(content.lines) || content.lines.length === 0) {
+    // console.warn("ManifestoSection: 'content' prop is invalid or 'content.lines' is not an array or is empty. Content:", content);
+    return null; 
   }
-
-  // At this point, 'content' is a valid object and 'content.lines' is an array (it could be empty).
+  
   const { lines, title, ctaButtonText } = content;
 
-  // Calculate the delay for the last line to start animating.
-  // If there are lines, it's (number of lines - 1) * stagger time.
-  // If no lines or 1 line, this base delay is 0.
-  const lastLineAnimationStartDelay = lines.length > 0 ? (lines.length - 1) * 0.4 : 0;
-  // The last line's animation duration is 0.8s.
-  const buttonAppearDelay = lastLineAnimationStartDelay + 0.8 + 0.2; // Start 0.2s after last line finishes.
-  const faintLineAppearDelay = buttonAppearDelay + 0.3; // Start 0.3s after button starts.
+  const lastLineAnimationStartDelay = (lines.length - 1) * 0.4;
+  const buttonAppearDelay = lastLineAnimationStartDelay + 0.8 + 0.2; 
+  const faintLineAppearDelay = buttonAppearDelay + 0.3;
 
   return (
     <section
@@ -74,7 +66,7 @@ export function ManifestoSection({ content }: { content?: ManifestoSectionConten
 
       {ctaButtonText && (
         <motion.div
-          className="mt-12 text-center"
+          className="mt-12 md:mt-20 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: isInView ? buttonAppearDelay : 0 }}
