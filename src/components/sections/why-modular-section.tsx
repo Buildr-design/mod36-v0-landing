@@ -32,13 +32,12 @@ export function WhyModularSection({ content }: { content?: WhyModularSectionCont
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      {/* 3D Background Visual Placeholder */}
+      {/* Animated Background Layer */}
       <motion.div
-        className="absolute inset-0 z-0 opacity-10 bg-muted/30" // Example styling, adjust as needed
+        className="animated-bg-layer animate-system-expanding-pattern"
         data-ai-hint={content.visualDataAiHint}
-        variants={itemVariants} // Animate the background itself if desired
+        variants={itemVariants}
       >
-        {/* This div is now for the background */}
       </motion.div>
 
       {/* Foreground Content */}

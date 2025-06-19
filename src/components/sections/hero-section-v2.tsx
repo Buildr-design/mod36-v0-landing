@@ -42,13 +42,13 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
     >
       {/* Background Element */}
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 animated-bg-layer animate-pulse-opacity" // Added animation class
         style={{
-          backgroundImage: 'radial-gradient(circle, hsl(var(--accent) / 0.07) 0%, transparent 60%)',
+          backgroundImage: 'radial-gradient(circle, hsl(var(--accent) / 0.07) 0%, transparent 60%)', // Base style for gradient
           backgroundSize: '150% 150%',
           backgroundPosition: 'center center',
         }}
-        data-ai-hint={content.visualDataAiHint} // This should be the 3D background hint
+        data-ai-hint={content.visualDataAiHint}
       >
         {/* Optional: subtle background pattern for light theme, could also be part of the 3D effect */}
         <div className="absolute inset-0 opacity-[0.03]">

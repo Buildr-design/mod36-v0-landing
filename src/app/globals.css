@@ -92,3 +92,58 @@
     scroll-behavior: smooth;
   }
 }
+
+/* Animations for section backgrounds */
+@keyframes pulse-opacity {
+  0%, 100% { opacity: 0.7; } /* Adjusted base opacity for the animation */
+  50% { opacity: 1; }
+}
+.animate-pulse-opacity {
+  animation: pulse-opacity 5s infinite ease-in-out;
+}
+
+@keyframes morphing-grid {
+  0% { background-position: 0 0; }
+  25% { background-position: 20px 20px; }
+  50% { background-position: 0 40px; }
+  75% { background-position: -20px 20px; }
+  100% { background-position: 0 0; }
+}
+.animate-morphing-grid {
+  background-image:
+    linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px), /* Reduced opacity */
+    linear-gradient(to right, hsl(var(--primary) / 0.03) 1px, transparent 1px); /* Reduced opacity */
+  background-size: 40px 40px;
+  animation: morphing-grid 20s infinite linear;
+  opacity: 0.5; /* Added overall opacity to keep it subtle */
+}
+
+@keyframes system-building-dots {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); } /* Reduced opacity */
+  50% { opacity: 0.2; transform: scale(1); } /* Reduced opacity */
+}
+.animate-system-building-dots {
+  background-image: radial-gradient(hsl(var(--accent) / 0.2) 0.5px, transparent 0.5px); /* Reduced opacity & dot size */
+  background-size: 25px 25px; /* Adjusted size */
+  animation: system-building-dots 7s infinite ease-in-out;
+   opacity: 0.7;
+}
+
+@keyframes system-expanding-pattern {
+  0% { background-size: 50px 50px; opacity: 0.03; } /* Reduced opacity */
+  50% { background-size: 70px 70px; opacity: 0.06; } /* Reduced opacity */
+  100% { background-size: 50px 50px; opacity: 0.03; } /* Reduced opacity */
+}
+.animate-system-expanding-pattern {
+   background-image:
+    radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px); /* Reduced opacity & dot size */
+  animation: system-expanding-pattern 12s infinite ease-in-out;
+   opacity: 0.6;
+}
+
+.animated-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}

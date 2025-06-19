@@ -34,13 +34,12 @@ export function WhatIsMod36Section({ content }: { content?: WhatIsMod36V001Conte
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      {/* 3D Background Visual Placeholder */}
+      {/* Animated Background Layer */}
       <motion.div
-        className="absolute inset-0 z-0 opacity-10 bg-muted/30" // Example styling, adjust as needed
+        className="animated-bg-layer animate-morphing-grid"
         data-ai-hint={content.visualDataAiHint}
-        variants={itemVariants} // Animate the background itself if desired
+        variants={itemVariants} 
       >
-        {/* This div is now for the background, content inside will be managed by AI hint */}
       </motion.div>
 
       {/* Foreground Content */}
