@@ -5,7 +5,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import type { WhyModularSectionContent } from '@/data/site-content';
-import Image from 'next/image';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -33,31 +32,34 @@ export function WhyModularSection({ content }: { content?: WhyModularSectionCont
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      <motion.h2
-        id="why-modular-title"
-        className="font-headline text-3xl md:text-4xl font-bold text-primary mb-8 text-center"
-        variants={itemVariants}
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        {content.title}
-      </motion.h2>
-
-      <motion.div className="max-w-2xl text-center mb-10" variants={itemVariants}>
-        {content.mainParagraphs.map((paragraph, index) => (
-          <p key={index} className="text-lg md:text-xl text-foreground/80 mb-4 font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            {paragraph}
-          </p>
-        ))}
-      </motion.div>
-      
-      {/* Placeholder for "Animated loop showing modules snapping together, system expanding" */}
-      <motion.div 
-        className="w-full max-w-lg h-56 bg-muted/50 rounded-lg flex items-center justify-center text-muted-foreground italic text-sm shadow-md"
+      {/* 3D Background Visual Placeholder */}
+      <motion.div
+        className="absolute inset-0 z-0 opacity-10 bg-muted/30" // Example styling, adjust as needed
         data-ai-hint={content.visualDataAiHint}
-        variants={itemVariants}
+        variants={itemVariants} // Animate the background itself if desired
       >
-        [Visual: {content.visualDataAiHint}]
+        {/* This div is now for the background */}
       </motion.div>
+
+      {/* Foreground Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
+        <motion.h2
+          id="why-modular-title"
+          className="font-headline text-3xl md:text-4xl font-bold text-primary mb-8"
+          variants={itemVariants}
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          {content.title}
+        </motion.h2>
+
+        <motion.div className="max-w-2xl mb-10" variants={itemVariants}>
+          {content.mainParagraphs.map((paragraph, index) => (
+            <p key={index} className="text-lg md:text-xl text-foreground/80 mb-4 font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              {paragraph}
+            </p>
+          ))}
+        </motion.div>
+      </div>
     </motion.section>
   );
 }

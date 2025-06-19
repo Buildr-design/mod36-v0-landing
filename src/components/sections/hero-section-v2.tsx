@@ -40,17 +40,7 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      {/* Optional: subtle background pattern for light theme */}
-      <div className="absolute inset-0 z-0 opacity-[0.03]">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="heroGridLight" width="80" height="80" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="hsl(var(--primary) / 0.5)" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#heroGridLight)" />
-        </svg>
-      </div>
+      {/* Background Element */}
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -58,8 +48,21 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
           backgroundSize: '150% 150%',
           backgroundPosition: 'center center',
         }}
-        data-ai-hint={content.visualDataAiHint}
-      ></div>
+        data-ai-hint={content.visualDataAiHint} // This should be the 3D background hint
+      >
+        {/* Optional: subtle background pattern for light theme, could also be part of the 3D effect */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="heroGridLight" width="80" height="80" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="1" fill="hsl(var(--primary) / 0.5)" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#heroGridLight)" />
+          </svg>
+        </div>
+      </div>
+
 
       <motion.div
         className="z-10 max-w-4xl w-full flex flex-col items-center relative"
@@ -67,14 +70,14 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
       >
         <motion.h1
           id="hero-main-headline"
-          className="font-headline text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary mb-6" // Primary color for headline
+          className="font-headline text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary mb-6"
           variants={itemVariants}
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           {content.headline}
         </motion.h1>
         <motion.h2
-          className="font-body text-xl md:text-2xl text-foreground/80 mb-10" // Slightly muted foreground
+          className="font-body text-xl md:text-2xl text-foreground/80 mb-10"
           variants={itemVariants}
            style={{ fontFamily: "'DM Sans', sans-serif" }}
         >
@@ -91,13 +94,12 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
                 ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon)
                 : (cta.icon as LucideIcons.LucideIcon | undefined);
               
-              // Determine classes for primary and accent button variants
               let buttonClasses = "";
-              if (cta.variant === 'default') { // Main CTA as accent
+              if (cta.variant === 'default') { 
                 buttonClasses = 'bg-accent text-accent-foreground hover:bg-accent/90';
-              } else if (cta.variant === 'outline') { // Secondary CTA as primary (charcoal) outline
+              } else if (cta.variant === 'outline') { 
                 buttonClasses = 'border-primary text-primary hover:bg-primary hover:text-primary-foreground';
-              } else { // Fallback for other variants if any
+              } else { 
                  buttonClasses = 'bg-primary text-primary-foreground hover:bg-primary/90';
               }
 

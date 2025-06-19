@@ -7,7 +7,6 @@ import { useRef } from 'react';
 import type { WhatIsMod36V001Content } from '@/data/site-content';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import * as LucideIcons from 'lucide-react';
-import Image from 'next/image';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -29,66 +28,70 @@ export function WhatIsMod36Section({ content }: { content?: WhatIsMod36V001Conte
     <motion.section
       id="what-is-mod36"
       ref={sectionRef}
-      className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 bg-background text-foreground"
+      className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 bg-background text-foreground relative"
       aria-labelledby="what-is-mod36-title"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      <motion.h2
-        id="what-is-mod36-title"
-        className="font-headline text-3xl md:text-4xl font-bold text-primary mb-8 text-center"
-        variants={itemVariants}
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        What is Mod36?
-      </motion.h2>
-
-      <motion.div className="max-w-3xl text-center mb-12" variants={itemVariants}>
-        {content.mainParagraphs.map((paragraph, index) => (
-          <p key={index} className="text-lg md:text-xl text-foreground/80 mb-4 font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            {paragraph}
-          </p>
-        ))}
-      </motion.div>
-
-      {/* Placeholder for "Grid-based structure morphing across industries" visual */}
-      <motion.div 
-        className="w-full max-w-xl h-48 bg-muted/50 rounded-lg flex items-center justify-center text-muted-foreground italic text-sm mb-12 shadow-md"
+      {/* 3D Background Visual Placeholder */}
+      <motion.div
+        className="absolute inset-0 z-0 opacity-10 bg-muted/30" // Example styling, adjust as needed
         data-ai-hint={content.visualDataAiHint}
-        variants={itemVariants}
+        variants={itemVariants} // Animate the background itself if desired
       >
-        [Visual: {content.visualDataAiHint}]
+        {/* This div is now for the background, content inside will be managed by AI hint */}
       </motion.div>
 
-      {content.iconSubsections && content.iconSubsections.length > 0 && (
-        <motion.div 
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full max-w-5xl"
-          variants={itemVariants} // This container will stagger its children (the cards)
+      {/* Foreground Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+        <motion.h2
+          id="what-is-mod36-title"
+          className="font-headline text-3xl md:text-4xl font-bold text-primary mb-8 text-center"
+          variants={itemVariants}
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          {content.iconSubsections.map((subsection, index) => {
-            const IconComponent = subsection.iconName && LucideIcons[subsection.iconName as keyof typeof LucideIcons]
-              ? LucideIcons[subsection.iconName as keyof typeof LucideIcons] as LucideIcons.LucideIcon
-              : LucideIcons.Box; // Fallback icon
+          What is Mod36?
+        </motion.h2>
 
-            return (
-              <motion.div key={index} variants={itemVariants}> {/* Each card animates in */}
-                <Card className="bg-card text-card-foreground h-full shadow-sm hover:shadow-lg transition-shadow duration-300">
-                  <CardHeader className="items-center text-center pb-3">
-                    <IconComponent className="h-10 w-10 text-accent mb-3" />
-                    <CardTitle className="text-lg font-semibold text-primary font-headline" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                      {subsection.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="text-center">
-                    <p className="text-sm text-muted-foreground font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>{subsection.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
+        <motion.div className="max-w-3xl text-center mb-12" variants={itemVariants}>
+          {content.mainParagraphs.map((paragraph, index) => (
+            <p key={index} className="text-lg md:text-xl text-foreground/80 mb-4 font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              {paragraph}
+            </p>
+          ))}
         </motion.div>
-      )}
+
+        {/* Icon Subsections remain on top of the background */}
+        {content.iconSubsections && content.iconSubsections.length > 0 && (
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 w-full max-w-5xl mt-12"
+            variants={itemVariants}
+          >
+            {content.iconSubsections.map((subsection, index) => {
+              const IconComponent = subsection.iconName && LucideIcons[subsection.iconName as keyof typeof LucideIcons]
+                ? LucideIcons[subsection.iconName as keyof typeof LucideIcons] as LucideIcons.LucideIcon
+                : LucideIcons.Box; 
+
+              return (
+                <motion.div key={index} variants={itemVariants}>
+                  <Card className="bg-card text-card-foreground h-full shadow-sm hover:shadow-lg transition-shadow duration-300">
+                    <CardHeader className="items-center text-center pb-3">
+                      <IconComponent className="h-10 w-10 text-accent mb-3" />
+                      <CardTitle className="text-lg font-semibold text-primary font-headline" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                        {subsection.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center">
+                      <p className="text-sm text-muted-foreground font-body" style={{ fontFamily: "'DM Sans', sans-serif" }}>{subsection.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
+      </div>
     </motion.section>
   );
 }

@@ -8,7 +8,6 @@ import type { BuildrSectionContent } from '@/data/site-content';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
-import Image from 'next/image';
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -30,73 +29,76 @@ export function BuildrSection({ content }: { content?: BuildrSectionContent }) {
     <motion.section
       id="buildr"
       ref={sectionRef}
-      className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 bg-card text-card-foreground relative" // Using card bg for slight contrast
+      className="min-h-screen h-screen snap-start flex flex-col items-center justify-center p-8 md:p-16 bg-card text-card-foreground relative"
       aria-labelledby="buildr-title"
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={sectionVariants}
     >
-      <motion.h2
-        id="buildr-title"
-        className="font-headline text-3xl md:text-4xl font-bold text-primary mb-6 text-center"
-        variants={itemVariants}
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        {content.title}
-      </motion.h2>
-
-      <motion.p 
-        className="max-w-2xl text-lg md:text-xl text-foreground/80 mb-10 text-center font-body" 
-        variants={itemVariants}
-        style={{ fontFamily: "'DM Sans', sans-serif" }}
-      >
-        {content.introParagraph}
-      </motion.p>
-      
-      {/* Placeholder for "Interactive challenge cards or system-building visual metaphor" */}
-      <motion.div 
-        className="w-full max-w-md h-64 bg-muted/50 rounded-lg flex items-center justify-center text-muted-foreground italic text-sm mb-10 shadow-md"
+      {/* 3D Background Visual Placeholder */}
+      <motion.div
+        className="absolute inset-0 z-0 opacity-10 bg-muted/30" // Example styling, adjust as needed
         data-ai-hint={content.visualDataAiHint}
-        variants={itemVariants}
+        variants={itemVariants} // Animate the background itself if desired
       >
-        [Visual: {content.visualDataAiHint}]
+        {/* This div is now for the background */}
       </motion.div>
-
-      {content.ctaButtons && content.ctaButtons.length > 0 && (
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4"
+      
+      {/* Foreground Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full h-full text-center">
+        <motion.h2
+          id="buildr-title"
+          className="font-headline text-3xl md:text-4xl font-bold text-primary mb-6"
           variants={itemVariants}
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          {content.ctaButtons.map((cta, index) => {
-            const CtaIconComponent = cta.icon && typeof cta.icon === 'string'
-              ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon)
-              : (cta.icon as LucideIcons.LucideIcon | undefined);
-            
-            let buttonClasses = "";
-            if (cta.variant === 'default') { // Main CTA as accent
-              buttonClasses = 'bg-accent text-accent-foreground hover:bg-accent/90';
-            } else if (cta.variant === 'outline') { // Secondary CTA as primary (charcoal) outline
-              buttonClasses = 'border-primary text-primary hover:bg-primary hover:text-primary-foreground';
-            } else {
-               buttonClasses = 'bg-primary text-primary-foreground hover:bg-primary/90';
-            }
+          {content.title}
+        </motion.h2>
 
-            return (
-              <Button
-                key={index}
-                asChild
-                size="lg"
-                className={buttonClasses}
-              >
-                <Link href={cta.href} target={cta.target || '_self'}>
-                  {CtaIconComponent && <CtaIconComponent className="mr-2 h-5 w-5" />}
-                  {cta.text}
-                </Link>
-              </Button>
-            );
-          })}
-        </motion.div>
-      )}
+        <motion.p 
+          className="max-w-2xl text-lg md:text-xl text-foreground/80 mb-10 font-body" 
+          variants={itemVariants}
+          style={{ fontFamily: "'DM Sans', sans-serif" }}
+        >
+          {content.introParagraph}
+        </motion.p>
+        
+        {content.ctaButtons && content.ctaButtons.length > 0 && (
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 mt-10"
+            variants={itemVariants}
+          >
+            {content.ctaButtons.map((cta, index) => {
+              const CtaIconComponent = cta.icon && typeof cta.icon === 'string'
+                ? (LucideIcons[cta.icon as keyof typeof LucideIcons] as LucideIcons.LucideIcon)
+                : (cta.icon as LucideIcons.LucideIcon | undefined);
+              
+              let buttonClasses = "";
+              if (cta.variant === 'default') { 
+                buttonClasses = 'bg-accent text-accent-foreground hover:bg-accent/90';
+              } else if (cta.variant === 'outline') { 
+                buttonClasses = 'border-primary text-primary hover:bg-primary hover:text-primary-foreground';
+              } else {
+                 buttonClasses = 'bg-primary text-primary-foreground hover:bg-primary/90';
+              }
+
+              return (
+                <Button
+                  key={index}
+                  asChild
+                  size="lg"
+                  className={buttonClasses}
+                >
+                  <Link href={cta.href} target={cta.target || '_self'}>
+                    {CtaIconComponent && <CtaIconComponent className="mr-2 h-5 w-5" />}
+                    {cta.text}
+                  </Link>
+                </Button>
+              );
+            })}
+          </motion.div>
+        )}
+      </div>
     </motion.section>
   );
 }
