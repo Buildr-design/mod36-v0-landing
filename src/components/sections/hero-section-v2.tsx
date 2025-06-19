@@ -1,4 +1,3 @@
-
 // src/components/sections/hero-section-v2.tsx
 'use client';
 
@@ -42,15 +41,14 @@ export function HeroSectionV2({ content }: { content?: HeroV001Content }) {
     >
       {/* Background Element */}
       <div
-        className="absolute inset-0 z-0 animated-bg-layer animate-pulse-opacity" // Added animation class
+        className="absolute inset-0 z-0 animated-bg-layer animate-pulse-opacity" 
         style={{
-          backgroundImage: 'radial-gradient(circle, hsl(var(--accent) / 0.07) 0%, transparent 60%)', // Base style for gradient
+          backgroundImage: 'radial-gradient(circle, hsl(var(--accent) / 0.15) 0%, transparent 60%)', // Increased from 0.07
           backgroundSize: '150% 150%',
           backgroundPosition: 'center center',
         }}
         data-ai-hint={content.visualDataAiHint}
       >
-        {/* Optional: subtle background pattern for light theme, could also be part of the 3D effect */}
         <div className="absolute inset-0 opacity-[0.03]">
           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>

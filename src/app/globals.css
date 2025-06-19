@@ -95,10 +95,11 @@
 
 /* Animations for section backgrounds */
 @keyframes pulse-opacity {
-  0%, 100% { opacity: 0.7; } /* Adjusted base opacity for the animation */
+  0%, 100% { opacity: 0.7; } 
   50% { opacity: 1; }
 }
 .animate-pulse-opacity {
+  /* The radial gradient itself now has increased opacity */
   animation: pulse-opacity 5s infinite ease-in-out;
 }
 
@@ -111,34 +112,34 @@
 }
 .animate-morphing-grid {
   background-image:
-    linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px), /* Reduced opacity */
-    linear-gradient(to right, hsl(var(--primary) / 0.03) 1px, transparent 1px); /* Reduced opacity */
+    linear-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px), /* Increased from 0.03 */
+    linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px); /* Increased from 0.03 */
   background-size: 40px 40px;
   animation: morphing-grid 20s infinite linear;
-  opacity: 0.5; /* Added overall opacity to keep it subtle */
+  opacity: 0.5; 
 }
 
 @keyframes system-building-dots {
-  0%, 100% { opacity: 0.1; transform: scale(0.8); } /* Reduced opacity */
-  50% { opacity: 0.2; transform: scale(1); } /* Reduced opacity */
+  0%, 100% { opacity: 0.4; transform: scale(0.8); } /* Increased from 0.1 */
+  50% { opacity: 0.7; transform: scale(1); } /* Increased from 0.2 */
 }
 .animate-system-building-dots {
-  background-image: radial-gradient(hsl(var(--accent) / 0.2) 0.5px, transparent 0.5px); /* Reduced opacity & dot size */
-  background-size: 25px 25px; /* Adjusted size */
+  background-image: radial-gradient(hsl(var(--accent) / 0.4) 0.5px, transparent 0.5px); /* Increased from 0.2 */
+  background-size: 25px 25px; 
   animation: system-building-dots 7s infinite ease-in-out;
-   opacity: 0.7;
+  opacity: 0.8; /* Increased from 0.7 */
 }
 
 @keyframes system-expanding-pattern {
-  0% { background-size: 50px 50px; opacity: 0.03; } /* Reduced opacity */
-  50% { background-size: 70px 70px; opacity: 0.06; } /* Reduced opacity */
-  100% { background-size: 50px 50px; opacity: 0.03; } /* Reduced opacity */
+  0% { background-size: 50px 50px; opacity: 0.3; } /* Increased from 0.03 */
+  50% { background-size: 70px 70px; opacity: 0.6; } /* Increased from 0.06 */
+  100% { background-size: 50px 50px; opacity: 0.3; } /* Increased from 0.03 */
 }
 .animate-system-expanding-pattern {
    background-image:
-    radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px); /* Reduced opacity & dot size */
+    radial-gradient(hsl(var(--primary) / 0.3) 1px, transparent 1px); /* Increased from 0.1 */
   animation: system-expanding-pattern 12s infinite ease-in-out;
-   opacity: 0.6;
+   opacity: 0.7; /* Increased from 0.6 */
 }
 
 .animated-bg-layer {
